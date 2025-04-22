@@ -28,12 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Form1";
+            btnDebug = new Button();
+            SuspendLayout();
+            // 
+            // btnDebug
+            // 
+            btnDebug.Location = new Point(358, 330);
+            btnDebug.Name = "btnDebug";
+            btnDebug.Size = new Size(75, 23);
+            btnDebug.TabIndex = 0;
+            btnDebug.Text = "Debug";
+            btnDebug.UseVisualStyleBackColor = true;
+            btnDebug.Click += btnDebug_Click;
+            // 
+            // FormMain
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(800, 450);
+            Controls.Add(btnDebug);
+            Name = "FormMain";
+            Text = "Video Game Catalog";
+            ResumeLayout(false);
         }
 
         #endregion
+
+        private Button btnDebug;
     }
 }

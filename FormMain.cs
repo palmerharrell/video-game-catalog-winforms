@@ -6,5 +6,10 @@ namespace VideoGameCollection_WinForms
         {
             InitializeComponent();
         }
+
+        private void btnDebug_Click(object sender, EventArgs e)
+        {
+            MainDebugger.MainDebug();
+        }
     }
 }
