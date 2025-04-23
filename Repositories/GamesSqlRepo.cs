@@ -19,12 +19,16 @@ namespace VideoGameCollection_WinForms.Repositories
             var dataTable = new DataTable();
             var selectString = $" SELECT * FROM GAMES ";
 
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            try
             {
-                using (SqlDataAdapter adapter = new SqlDataAdapter(selectString, connection))
-                {
-                    adapter.Fill(dataTable);
-                }
+                using SqlConnection connection = new SqlConnection(_connectionString);
+                using SqlDataAdapter adapter = new SqlDataAdapter(selectString, connection);
+                adapter.Fill(dataTable);
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
             }
 
             return dataTable;

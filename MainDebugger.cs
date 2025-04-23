@@ -14,42 +14,20 @@ namespace VideoGameCollection_WinForms
         public static void MainDebug()
         {
             // Test Code goes here
+            string firstGameID = string.Empty;
 
-            // TODO: Research, setup, and test connection to network SQL Server database 
+            DataTable games = GamesSqlRepo.GetGames();
+            DataTable gamePricing;
+            DataTable gameImages;
 
-            GamesSqlRepo.GetGames();
+            if (games.Rows.Count > 0)
+            {
+                firstGameID = games.AsEnumerable().FirstOrDefault()?["VGID"].ToString();
+                //gamePricing = GamesSqlRepo.GetGamePrices(firstGameID); //TODO: implement GetGamePrices
+                //gameImages = GamesSqlRepo.GetGameImages(firstGameID);  //TODO: implement GetGameImages
+            }
 
-            //try
-
-            //{
-
-            //    String str = "server=MUNESH-PC;database=windowapp;UID=sa;password=123";
-
-            //    String query = "select * from data";
-
-            //    SqlConnection con = new SqlConnection(str);
-
-            //    SqlCommand cmd = new SqlCommand(query, con);
-
-            //    con.Open();
-
-            //    DataSet ds = new DataSet();
-
-            //    MessageBox.Show("connect with sql server");
-
-            //    con.Close();
-
-            //}
-
-            //catch (Exception es)
-
-            //{
-
-            //    MessageBox.Show(es.Message);
-
-
-
-            //}
+            var waitasec = true;
         }
     }
 }
