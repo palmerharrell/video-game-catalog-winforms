@@ -8,14 +8,28 @@ namespace VideoGameCollection_WinForms.Utilities
 {
     public class ImageUtilities
     {
-        public static void LoadImageFromDisk()
+        public static byte[] GetByteArrayFromDiskImage(string path)
         {
-            //TODO: Implement LoadImageFromDisk
+            return ConvertImageToByteArray(Image.FromFile(path));
         }
 
-        public static void DisplayImage()
+        public static byte[] ConvertImageToByteArray(Image image)
         {
-            //TODO: Implement DisplayImage
+            byte[] bytes;
+            var stream = new MemoryStream();
+
+            image.Save(stream, System.Drawing.Imaging.ImageFormat.Bmp);
+            bytes = stream.ToArray();
+
+            return bytes;
         }
+
+        public static Image ConvertByteArrayToImage(byte[] bytes)
+        {
+            var stream = new MemoryStream(bytes);
+            Image image = Image.FromStream(stream);
+            return image;
+        }
+
     }
 }

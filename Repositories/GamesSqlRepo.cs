@@ -8,10 +8,8 @@ using System.Data;
 
 namespace VideoGameCollection_WinForms.Repositories
 {
-    public class GamesSqlRepo
-    {
-        private const string _connectionString = "server=ORANGE;database=VideoGamesDB;Encrypt=false;UID=palmer;password=palmer";
-        
+    public class GamesSqlRepo : SqlRepository
+    {   
         public GamesSqlRepo() { }
 
         public static DataTable GetGames()
@@ -27,7 +25,6 @@ namespace VideoGameCollection_WinForms.Repositories
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show(ex.Message);
             }
 
