@@ -14,21 +14,21 @@ namespace VideoGameCollection_WinForms.Repositories
         
         public GamesSqlRepo() { }
 
-        public static void GetGames() //TODO: Return a DataTable, once I've figured out how to populate one
+        public static DataTable GetGames()
         {
-            var queryString = $" SELECT * FROM GAMES ";
-            QueryDatabase(queryString, _connectionString);
+            var dataTable = new DataTable();
+            var selectString = $" SELECT * FROM GAMES ";
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                using (SqlDataAdapter adapter = new SqlDataAdapter(selectString, connection))
+                {
+                    adapter.Fill(dataTable);
+                }
+            }
+
+            return dataTable;
         }
 
-        private static void QueryDatabase(string queryString, string connectionString)
-        {
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                SqlCommand command = new SqlCommand(queryString, connection);
-                command.Connection.Open();
-                var data = command.ExecuteReader(); // TODO: Look up how to use ExecuteReader properly and get rows into a DataTable
-                var waitasec = true;
-            }
-        }
     }
 }
