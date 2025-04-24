@@ -1,6 +1,7 @@
 ﻿using System.Data;
 using VideoGameCollection_WinForms.Repositories;
 using VideoGameCollection_WinForms.Utilities;
+using VideoGameCollection_WinForms.WebScraper;
 
 namespace VideoGameCollection_WinForms
 {
@@ -30,14 +31,18 @@ namespace VideoGameCollection_WinForms
 
             // Display image from database on a form (done, works)
             //gameImages = ImagesSqlRepo.GetImagesByGame(2);
-            gameImages = ImagesSqlRepo.GetImagesByGame(22);
-            var testImage = ImageUtilities.ConvertByteArrayToImage(gameImages.AsEnumerable().FirstOrDefault()?["Image"] as byte[]);
+            //gameImages = ImagesSqlRepo.GetImagesByGame(22);
+            //var testImage = ImageUtilities.ConvertByteArrayToImage(gameImages.AsEnumerable().FirstOrDefault()?["Image"] as byte[]);
 
-            using FormImageDisplay displayForm = new FormImageDisplay();
-            {
-                displayForm.image = testImage;
-                displayForm.ShowDialog();
-            }
+            //using FormImageDisplay displayForm = new FormImageDisplay();
+            //{
+            //    displayForm.image = testImage;
+            //    displayForm.ShowDialog();
+            //}
+
+            // Testing Web Scraper on a wiki page
+            var scraper = new Scraper();
+            var scraperTestData = scraper.GetTestData();
 
             var waitasec = true;
         }
