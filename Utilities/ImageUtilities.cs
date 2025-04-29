@@ -28,6 +28,7 @@ namespace VideoGameCollection_WinForms.Utilities
         {
             var stream = new MemoryStream(bytes);
             Image image = Image.FromStream(stream);
+
             return image;
         }
 

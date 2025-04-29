@@ -45,6 +45,8 @@
             txtbxDeveloper = new TextBox();
             txtbxPublisher = new TextBox();
             txtbxDescription = new TextBox();
+            btnAddGame = new Button();
+            btnDeleteGame = new Button();
             ((System.ComponentModel.ISupportInitialize)picBoxGameImage).BeginInit();
             SuspendLayout();
             // 
@@ -64,7 +66,7 @@
             gameList.ItemHeight = 15;
             gameList.Location = new Point(10, 10);
             gameList.Name = "gameList";
-            gameList.Size = new Size(160, 499);
+            gameList.Size = new Size(160, 469);
             gameList.TabIndex = 1;
             gameList.SelectedIndexChanged += gameList_SelectedIndexChanged;
             // 
@@ -198,11 +200,33 @@
             txtbxDescription.Size = new Size(320, 75);
             txtbxDescription.TabIndex = 17;
             // 
+            // btnAddGame
+            // 
+            btnAddGame.BackgroundImage = Properties.Resources.PlusSignGreen;
+            btnAddGame.BackgroundImageLayout = ImageLayout.Zoom;
+            btnAddGame.Location = new Point(46, 485);
+            btnAddGame.Name = "btnAddGame";
+            btnAddGame.Size = new Size(25, 25);
+            btnAddGame.TabIndex = 18;
+            btnAddGame.UseVisualStyleBackColor = true;
+            // 
+            // btnDeleteGame
+            // 
+            btnDeleteGame.BackgroundImage = Properties.Resources.MinusSignRed;
+            btnDeleteGame.BackgroundImageLayout = ImageLayout.Zoom;
+            btnDeleteGame.Location = new Point(101, 485);
+            btnDeleteGame.Name = "btnDeleteGame";
+            btnDeleteGame.Size = new Size(25, 25);
+            btnDeleteGame.TabIndex = 19;
+            btnDeleteGame.UseVisualStyleBackColor = true;
+            // 
             // FormMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(989, 518);
+            Controls.Add(btnDeleteGame);
+            Controls.Add(btnAddGame);
             Controls.Add(txtbxDescription);
             Controls.Add(txtbxPublisher);
             Controls.Add(txtbxDeveloper);
@@ -248,5 +272,7 @@
         private TextBox txtbxDeveloper;
         private TextBox txtbxPublisher;
         private TextBox txtbxDescription;
+        private Button btnAddGame;
+        private Button btnDeleteGame;
     }
 }
