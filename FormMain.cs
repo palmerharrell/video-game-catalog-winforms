@@ -1,11 +1,13 @@
 using System.Data;
 using VideoGameCollection_WinForms.Repositories;
+using VideoGameCollection_WinForms.Utilities;
 
 namespace VideoGameCollection_WinForms
 {
     public partial class FormMain : Form
     {
         private DataTable games = new();
+        private Image? gameImage;
         private string loadedGameID = string.Empty;
 
         public FormMain()
@@ -75,13 +77,43 @@ namespace VideoGameCollection_WinForms
         private void BindGameDetail(string gameID)
         {
             ClearBindings();
-            //TODO: Get game details from games DataTable
-            //TODO: Get game image(s) from database
-            //TODO: Bind details/images to detail controls
+
+            var gameRow = games.AsEnumerable().Where(x => x["VGID"].ToString() == gameID).FirstOrDefault();
+
+            if (gameRow != null)
+            {
+                lblTitleValue.Text = gameRow["Title"].ToString();
+                lblGenreValue.Text = gameRow["Genre"].ToString();
+                lblPlatformValue.Text = gameRow["Platform"].ToString();
+                lblReleaseYearValue.Text = gameRow["ReleaseYear"].ToString();
+                lblDeveloperValue.Text = gameRow["Developer"].ToString();
+                lblPublisherValue.Text = gameRow["Publisher"].ToString();
+                lblDescriptionValue.Text = gameRow["Description"].ToString();
+
+                if (int.TryParse(gameID.Trim(), out int id))
+                {    
+                    var images = ImagesSqlRepo.GetImagesByGame(id);
+
+                    if (images != null && images.Rows.Count > 0)
+                    {
+                        var firstImage = images.AsEnumerable().First()["Image"] as byte[];
+
+                        if (firstImage != null)
+                        {
+                            gameImage = ImageUtilities.ConvertByteArrayToImage(firstImage);
+                            picBoxGameImage.Image = gameImage;
+                        }
+                    }
+                }
+            }
+
+            //TODO: Maybe get image dimensions and change dimensions of PictureBox to match, if under a certain size 
+            //TODO: Otherwise, probably have to stick with Zoom, since image will be too big for Form
         }
 
         private void ClearBindings()
         {
+            picBoxGameImage.Image = null;
             lblTitleValue.Text = string.Empty;
             lblGenreValue.Text = string.Empty;
             lblPlatformValue.Text = string.Empty;
