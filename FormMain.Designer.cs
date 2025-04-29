@@ -38,19 +38,19 @@
             lblReleaseYear = new Label();
             lblDeveloper = new Label();
             lblPublisher = new Label();
-            lblPublisherValue = new Label();
-            lblDeveloperValue = new Label();
-            lblReleaseYearValue = new Label();
-            lblPlatformValue = new Label();
-            lblGenreValue = new Label();
-            lblDescriptionValue = new Label();
-            lblTitleValue = new Label();
+            txtbxTitle = new TextBox();
+            txtbxGenre = new TextBox();
+            txtbxPlatform = new TextBox();
+            txtbxReleaseYear = new TextBox();
+            txtbxDeveloper = new TextBox();
+            txtbxPublisher = new TextBox();
+            txtbxDescription = new TextBox();
             ((System.ComponentModel.ISupportInitialize)picBoxGameImage).BeginInit();
             SuspendLayout();
             // 
             // btnDebug
             // 
-            btnDebug.Location = new Point(448, 486);
+            btnDebug.Location = new Point(905, 486);
             btnDebug.Name = "btnDebug";
             btnDebug.Size = new Size(75, 23);
             btnDebug.TabIndex = 0;
@@ -80,149 +80,136 @@
             // 
             // lblTitle
             // 
-            lblTitle.AutoSize = true;
             lblTitle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblTitle.Location = new Point(562, 12);
             lblTitle.Name = "lblTitle";
-            lblTitle.Size = new Size(32, 15);
+            lblTitle.Size = new Size(80, 15);
             lblTitle.TabIndex = 3;
             lblTitle.Text = "Title";
+            lblTitle.TextAlign = ContentAlignment.TopRight;
             // 
             // lblDescription
             // 
-            lblDescription.AutoSize = true;
             lblDescription.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblDescription.Location = new Point(562, 174);
             lblDescription.Name = "lblDescription";
-            lblDescription.Size = new Size(71, 15);
+            lblDescription.Size = new Size(80, 15);
             lblDescription.TabIndex = 4;
             lblDescription.Text = "Description";
+            lblDescription.TextAlign = ContentAlignment.TopRight;
             // 
             // lblGenre
             // 
-            lblGenre.AutoSize = true;
             lblGenre.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblGenre.Location = new Point(562, 39);
             lblGenre.Name = "lblGenre";
-            lblGenre.Size = new Size(42, 15);
+            lblGenre.Size = new Size(80, 15);
             lblGenre.TabIndex = 5;
             lblGenre.Text = "Genre";
+            lblGenre.TextAlign = ContentAlignment.TopRight;
             // 
             // lblPlatform
             // 
-            lblPlatform.AutoSize = true;
             lblPlatform.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblPlatform.Location = new Point(562, 66);
             lblPlatform.Name = "lblPlatform";
-            lblPlatform.Size = new Size(56, 15);
+            lblPlatform.Size = new Size(80, 15);
             lblPlatform.TabIndex = 6;
             lblPlatform.Text = "Platform";
+            lblPlatform.TextAlign = ContentAlignment.TopRight;
             // 
             // lblReleaseYear
             // 
-            lblReleaseYear.AutoSize = true;
             lblReleaseYear.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblReleaseYear.Location = new Point(562, 93);
             lblReleaseYear.Name = "lblReleaseYear";
-            lblReleaseYear.Size = new Size(77, 15);
+            lblReleaseYear.Size = new Size(80, 15);
             lblReleaseYear.TabIndex = 8;
             lblReleaseYear.Text = "Release Year";
+            lblReleaseYear.TextAlign = ContentAlignment.TopRight;
             // 
             // lblDeveloper
             // 
-            lblDeveloper.AutoSize = true;
             lblDeveloper.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblDeveloper.Location = new Point(562, 120);
             lblDeveloper.Name = "lblDeveloper";
-            lblDeveloper.Size = new Size(66, 15);
+            lblDeveloper.Size = new Size(80, 15);
             lblDeveloper.TabIndex = 9;
             lblDeveloper.Text = "Developer";
+            lblDeveloper.TextAlign = ContentAlignment.TopRight;
             // 
             // lblPublisher
             // 
-            lblPublisher.AutoSize = true;
             lblPublisher.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblPublisher.Location = new Point(562, 147);
             lblPublisher.Name = "lblPublisher";
-            lblPublisher.Size = new Size(58, 15);
+            lblPublisher.Size = new Size(80, 15);
             lblPublisher.TabIndex = 10;
             lblPublisher.Text = "Publisher";
+            lblPublisher.TextAlign = ContentAlignment.TopRight;
             // 
-            // lblPublisherValue
+            // txtbxTitle
             // 
-            lblPublisherValue.AutoSize = true;
-            lblPublisherValue.Location = new Point(663, 147);
-            lblPublisherValue.Name = "lblPublisherValue";
-            lblPublisherValue.Size = new Size(56, 15);
-            lblPublisherValue.TabIndex = 17;
-            lblPublisherValue.Text = "Publisher";
+            txtbxTitle.Location = new Point(660, 9);
+            txtbxTitle.Name = "txtbxTitle";
+            txtbxTitle.Size = new Size(320, 23);
+            txtbxTitle.TabIndex = 11;
             // 
-            // lblDeveloperValue
+            // txtbxGenre
             // 
-            lblDeveloperValue.AutoSize = true;
-            lblDeveloperValue.Location = new Point(663, 120);
-            lblDeveloperValue.Name = "lblDeveloperValue";
-            lblDeveloperValue.Size = new Size(60, 15);
-            lblDeveloperValue.TabIndex = 16;
-            lblDeveloperValue.Text = "Developer";
+            txtbxGenre.Location = new Point(660, 36);
+            txtbxGenre.Name = "txtbxGenre";
+            txtbxGenre.Size = new Size(320, 23);
+            txtbxGenre.TabIndex = 12;
             // 
-            // lblReleaseYearValue
+            // txtbxPlatform
             // 
-            lblReleaseYearValue.AutoSize = true;
-            lblReleaseYearValue.Location = new Point(663, 93);
-            lblReleaseYearValue.Name = "lblReleaseYearValue";
-            lblReleaseYearValue.Size = new Size(71, 15);
-            lblReleaseYearValue.TabIndex = 15;
-            lblReleaseYearValue.Text = "Release Year";
+            txtbxPlatform.Location = new Point(660, 63);
+            txtbxPlatform.Name = "txtbxPlatform";
+            txtbxPlatform.Size = new Size(320, 23);
+            txtbxPlatform.TabIndex = 13;
             // 
-            // lblPlatformValue
+            // txtbxReleaseYear
             // 
-            lblPlatformValue.AutoSize = true;
-            lblPlatformValue.Location = new Point(663, 66);
-            lblPlatformValue.Name = "lblPlatformValue";
-            lblPlatformValue.Size = new Size(53, 15);
-            lblPlatformValue.TabIndex = 14;
-            lblPlatformValue.Text = "Platform";
+            txtbxReleaseYear.Location = new Point(660, 90);
+            txtbxReleaseYear.Name = "txtbxReleaseYear";
+            txtbxReleaseYear.Size = new Size(320, 23);
+            txtbxReleaseYear.TabIndex = 14;
             // 
-            // lblGenreValue
+            // txtbxDeveloper
             // 
-            lblGenreValue.AutoSize = true;
-            lblGenreValue.Location = new Point(663, 39);
-            lblGenreValue.Name = "lblGenreValue";
-            lblGenreValue.Size = new Size(38, 15);
-            lblGenreValue.TabIndex = 13;
-            lblGenreValue.Text = "Genre";
+            txtbxDeveloper.Location = new Point(660, 117);
+            txtbxDeveloper.Name = "txtbxDeveloper";
+            txtbxDeveloper.Size = new Size(320, 23);
+            txtbxDeveloper.TabIndex = 15;
             // 
-            // lblDescriptionValue
+            // txtbxPublisher
             // 
-            lblDescriptionValue.AutoSize = true;
-            lblDescriptionValue.Location = new Point(663, 174);
-            lblDescriptionValue.Name = "lblDescriptionValue";
-            lblDescriptionValue.Size = new Size(67, 15);
-            lblDescriptionValue.TabIndex = 12;
-            lblDescriptionValue.Text = "Description";
+            txtbxPublisher.Location = new Point(660, 144);
+            txtbxPublisher.Name = "txtbxPublisher";
+            txtbxPublisher.Size = new Size(320, 23);
+            txtbxPublisher.TabIndex = 16;
             // 
-            // lblTitleValue
+            // txtbxDescription
             // 
-            lblTitleValue.AutoSize = true;
-            lblTitleValue.Location = new Point(663, 12);
-            lblTitleValue.Name = "lblTitleValue";
-            lblTitleValue.Size = new Size(30, 15);
-            lblTitleValue.TabIndex = 11;
-            lblTitleValue.Text = "Title";
+            txtbxDescription.Location = new Point(660, 171);
+            txtbxDescription.Multiline = true;
+            txtbxDescription.Name = "txtbxDescription";
+            txtbxDescription.Size = new Size(320, 75);
+            txtbxDescription.TabIndex = 17;
             // 
             // FormMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(917, 518);
-            Controls.Add(lblPublisherValue);
-            Controls.Add(lblDeveloperValue);
-            Controls.Add(lblReleaseYearValue);
-            Controls.Add(lblPlatformValue);
-            Controls.Add(lblGenreValue);
-            Controls.Add(lblDescriptionValue);
-            Controls.Add(lblTitleValue);
+            ClientSize = new Size(989, 518);
+            Controls.Add(txtbxDescription);
+            Controls.Add(txtbxPublisher);
+            Controls.Add(txtbxDeveloper);
+            Controls.Add(txtbxReleaseYear);
+            Controls.Add(txtbxPlatform);
+            Controls.Add(txtbxGenre);
+            Controls.Add(txtbxTitle);
             Controls.Add(lblPublisher);
             Controls.Add(lblDeveloper);
             Controls.Add(lblReleaseYear);
@@ -233,6 +220,7 @@
             Controls.Add(picBoxGameImage);
             Controls.Add(gameList);
             Controls.Add(btnDebug);
+            MinimumSize = new Size(1005, 557);
             Name = "FormMain";
             Text = "Video Game Catalog";
             Load += FormMain_Load;
@@ -253,12 +241,12 @@
         private Label lblReleaseYear;
         private Label lblDeveloper;
         private Label lblPublisher;
-        private Label lblPublisherValue;
-        private Label lblDeveloperValue;
-        private Label lblReleaseYearValue;
-        private Label lblPlatformValue;
-        private Label lblGenreValue;
-        private Label lblDescriptionValue;
-        private Label lblTitleValue;
+        private TextBox txtbxTitle;
+        private TextBox txtbxGenre;
+        private TextBox txtbxPlatform;
+        private TextBox txtbxReleaseYear;
+        private TextBox txtbxDeveloper;
+        private TextBox txtbxPublisher;
+        private TextBox txtbxDescription;
     }
 }

@@ -82,13 +82,13 @@ namespace VideoGameCollection_WinForms
 
             if (gameRow != null)
             {
-                lblTitleValue.Text = gameRow["Title"].ToString();
-                lblGenreValue.Text = gameRow["Genre"].ToString();
-                lblPlatformValue.Text = gameRow["Platform"].ToString();
-                lblReleaseYearValue.Text = gameRow["ReleaseYear"].ToString();
-                lblDeveloperValue.Text = gameRow["Developer"].ToString();
-                lblPublisherValue.Text = gameRow["Publisher"].ToString();
-                lblDescriptionValue.Text = gameRow["Description"].ToString();
+                txtbxTitle.Text = gameRow["Title"].ToString();
+                txtbxGenre.Text = gameRow["Genre"].ToString();
+                txtbxPlatform.Text = gameRow["Platform"].ToString();
+                txtbxReleaseYear.Text = gameRow["ReleaseYear"].ToString();
+                txtbxDeveloper.Text = gameRow["Developer"].ToString();
+                txtbxPublisher.Text = gameRow["Publisher"].ToString();
+                txtbxDescription.Text = gameRow["Description"].ToString();
 
                 if (int.TryParse(gameID.Trim(), out int id))
                 {    
@@ -114,13 +114,14 @@ namespace VideoGameCollection_WinForms
         private void ClearBindings()
         {
             picBoxGameImage.Image = null;
-            lblTitleValue.Text = string.Empty;
-            lblGenreValue.Text = string.Empty;
-            lblPlatformValue.Text = string.Empty;
-            lblReleaseYearValue.Text = string.Empty;
-            lblDeveloperValue.Text = string.Empty;
-            lblPublisherValue.Text = string.Empty;
-            lblDescriptionValue.Text = string.Empty;
+
+            txtbxTitle.Text = string.Empty;
+            txtbxGenre.Text = string.Empty;
+            txtbxPlatform.Text = string.Empty;
+            txtbxReleaseYear.Text = string.Empty;
+            txtbxDeveloper.Text = string.Empty;
+            txtbxPublisher.Text = string.Empty;
+            txtbxDescription.Text = string.Empty;
         }
 
     }
