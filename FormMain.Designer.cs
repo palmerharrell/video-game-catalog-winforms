@@ -47,6 +47,8 @@
             txtbxDescription = new TextBox();
             btnAddGame = new Button();
             btnDeleteGame = new Button();
+            btnSave = new Button();
+            btnCancel = new Button();
             ((System.ComponentModel.ISupportInitialize)picBoxGameImage).BeginInit();
             SuspendLayout();
             // 
@@ -156,6 +158,7 @@
             txtbxTitle.Name = "txtbxTitle";
             txtbxTitle.Size = new Size(320, 23);
             txtbxTitle.TabIndex = 11;
+            txtbxTitle.KeyUp += txtbxRequiredField_KeyUp;
             // 
             // txtbxGenre
             // 
@@ -170,6 +173,7 @@
             txtbxPlatform.Name = "txtbxPlatform";
             txtbxPlatform.Size = new Size(320, 23);
             txtbxPlatform.TabIndex = 13;
+            txtbxPlatform.KeyUp += txtbxRequiredField_KeyUp;
             // 
             // txtbxReleaseYear
             // 
@@ -209,6 +213,7 @@
             btnAddGame.Size = new Size(25, 25);
             btnAddGame.TabIndex = 18;
             btnAddGame.UseVisualStyleBackColor = true;
+            btnAddGame.Click += btnAddGame_Click;
             // 
             // btnDeleteGame
             // 
@@ -220,11 +225,37 @@
             btnDeleteGame.TabIndex = 19;
             btnDeleteGame.UseVisualStyleBackColor = true;
             // 
+            // btnSave
+            // 
+            btnSave.Enabled = false;
+            btnSave.Location = new Point(703, 272);
+            btnSave.Name = "btnSave";
+            btnSave.Size = new Size(75, 23);
+            btnSave.TabIndex = 20;
+            btnSave.Text = "Save";
+            btnSave.UseVisualStyleBackColor = true;
+            btnSave.Visible = false;
+            btnSave.Click += btnSave_Click;
+            // 
+            // btnCancel
+            // 
+            btnCancel.Enabled = false;
+            btnCancel.Location = new Point(856, 272);
+            btnCancel.Name = "btnCancel";
+            btnCancel.Size = new Size(75, 23);
+            btnCancel.TabIndex = 21;
+            btnCancel.Text = "Cancel";
+            btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.Visible = false;
+            btnCancel.Click += btnCancel_Click;
+            // 
             // FormMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(989, 518);
+            Controls.Add(btnCancel);
+            Controls.Add(btnSave);
             Controls.Add(btnDeleteGame);
             Controls.Add(btnAddGame);
             Controls.Add(txtbxDescription);
@@ -274,5 +305,7 @@
         private TextBox txtbxDescription;
         private Button btnAddGame;
         private Button btnDeleteGame;
+        private Button btnSave;
+        private Button btnCancel;
     }
 }

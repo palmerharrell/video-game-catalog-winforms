@@ -49,6 +49,37 @@ namespace VideoGameCollection_WinForms
             }
         }
 
+        private void btnAddGame_Click(object sender, EventArgs e)
+        {
+            ClearBindings();
+            ShowSaveAndCancel(true);
+            EnableAddAndDeleteGame(false);
+            txtbxTitle.Focus();
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            //TODO: Either INSERT or UPDATE
+            ShowSaveAndCancel(false);
+            EnableAddAndDeleteGame(true);
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            //TODO: Either clear form or un-do changes
+            
+            //TODO: When Adding, just ClearBindings(). That's probably all.
+            //TODO: When Editing, probably need to re-bind everything and select this game from the
+            //      listBox somehow. Need a way to "un-do" changes and go back to how it started.
+            ShowSaveAndCancel(false);
+            EnableAddAndDeleteGame(true);
+        }
+
+        private void txtbxRequiredField_KeyUp(object sender, KeyEventArgs e)
+        {
+            btnSave.Enabled = btnSave.Visible && ValidateInput();
+        }
+
         private void BtnDebug_Click(object sender, EventArgs e)
         {
             MainDebugger.MainDebug();
@@ -91,7 +122,7 @@ namespace VideoGameCollection_WinForms
                 txtbxDescription.Text = gameRow["Description"].ToString();
 
                 if (int.TryParse(gameID.Trim(), out int id))
-                {    
+                {
                     var images = ImagesSqlRepo.GetImagesByGame(id);
 
                     if (images != null && images.Rows.Count > 0)
@@ -111,6 +142,12 @@ namespace VideoGameCollection_WinForms
             //TODO: Otherwise, probably have to stick with Zoom, since image will be too big for Form
         }
 
+        private bool ValidateInput()
+        {
+            return !String.IsNullOrWhiteSpace(txtbxTitle.Text.Trim()) &&
+                   !String.IsNullOrWhiteSpace(txtbxPlatform.Text.Trim());
+        }
+
         private void ClearBindings()
         {
             picBoxGameImage.Image = null;
@@ -122,6 +159,39 @@ namespace VideoGameCollection_WinForms
             txtbxDeveloper.Text = string.Empty;
             txtbxPublisher.Text = string.Empty;
             txtbxDescription.Text = string.Empty;
+        }
+
+        private void ShowSaveAndCancel(bool show)
+        {
+            btnSave.Visible = show;
+            btnCancel.Visible = show;
+
+            btnSave.Enabled = show && ValidateInput();
+            btnCancel.Enabled = show;
+        }
+
+        private void EnableAddAndDeleteGame(bool enable)
+        {
+            btnAddGame.Enabled = enable;
+            btnDeleteGame.Enabled = enable && gameList.Items.Count > 0;
+
+            if (btnAddGame.Enabled)
+            {
+                btnAddGame.BackgroundImage = Properties.Resources.PlusSignGreen;
+            }
+            else
+            {
+                btnAddGame.BackgroundImage = Properties.Resources.PlusSignGreenDisabled;
+            }
+
+            if (btnDeleteGame.Enabled)
+            {
+                btnDeleteGame.BackgroundImage = Properties.Resources.MinusSignRed;
+            }
+            else
+            {
+                btnDeleteGame.BackgroundImage= Properties.Resources.MinusSignRedDisabled;
+            }
         }
 
     }

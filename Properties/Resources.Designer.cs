@@ -73,9 +73,29 @@ namespace VideoGameCollection_WinForms.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap MinusSignRedDisabled {
+            get {
+                object obj = ResourceManager.GetObject("MinusSignRedDisabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap PlusSignGreen {
             get {
                 object obj = ResourceManager.GetObject("PlusSignGreen", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap PlusSignGreenDisabled {
+            get {
+                object obj = ResourceManager.GetObject("PlusSignGreenDisabled", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

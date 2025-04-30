@@ -121,7 +121,13 @@
   <data name="PlusSignGreen" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PlusSignGreen.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="PlusSignGreenDisabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PlusSignGreenDisabled.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="MinusSignRed" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MinusSignRed.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MinusSignRedDisabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MinusSignRedDisabled.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
