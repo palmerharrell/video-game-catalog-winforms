@@ -1,4 +1,5 @@
 using System.Data;
+using VideoGameCollection_WinForms.Models;
 using VideoGameCollection_WinForms.Repositories;
 using VideoGameCollection_WinForms.Utilities;
 
@@ -6,9 +7,17 @@ namespace VideoGameCollection_WinForms
 {
     public partial class FormMain : Form
     {
+        private enum FormMode
+        {
+            View,
+            Add,
+            Edit
+        }
+
         private DataTable games = new();
         private Image? gameImage;
-        private string loadedGameID = string.Empty;
+        private Game? loadedGame;
+        private FormMode mode;
 
         public FormMain()
         {
@@ -20,6 +29,7 @@ namespace VideoGameCollection_WinForms
         {
             try
             {
+                mode = FormMode.View;
                 ClearBindings();
                 LoadGames();
                 BindGameList();
@@ -32,7 +42,7 @@ namespace VideoGameCollection_WinForms
 
         private void gameList_SelectedIndexChanged(object? sender, EventArgs e)
         {
-            if (gameList.SelectedItem != null)
+            if (mode.Equals(FormMode.View) && gameList.SelectedItem != null)
             {
                 DataRowView selectedGame = (DataRowView)gameList.SelectedItem;
 
@@ -40,10 +50,9 @@ namespace VideoGameCollection_WinForms
                 {
                     var selectedGameID = selectedGame.Row["VGID"].ToString();
 
-                    if (selectedGameID != null && !string.Equals(selectedGameID, loadedGameID))
+                    if (selectedGameID != null && !string.Equals(selectedGameID, loadedGame?.VGID))
                     {
                         BindGameDetail(selectedGameID);
-                        loadedGameID = selectedGameID;
                     }
                 }
             }
@@ -51,34 +60,58 @@ namespace VideoGameCollection_WinForms
 
         private void btnAddGame_Click(object sender, EventArgs e)
         {
+            mode = FormMode.Add;
+
             ClearBindings();
-            ShowSaveAndCancel(true);
+            EnableGameList(false);
             EnableAddAndDeleteGame(false);
+            ShowSaveAndCancel(true);
             txtbxTitle.Focus();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            //TODO: Either INSERT or UPDATE
-            ShowSaveAndCancel(false);
+            AddOrUpdateGame();
+            EnableGameList(true);
             EnableAddAndDeleteGame(true);
+            ShowSaveAndCancel(false);
+            mode = FormMode.View;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
             //TODO: Either clear form or un-do changes
-            
+
             //TODO: When Adding, just ClearBindings(). That's probably all.
             //TODO: When Editing, probably need to re-bind everything and select this game from the
             //      listBox somehow. Need a way to "un-do" changes and go back to how it started.
-            ShowSaveAndCancel(false);
+            EnableGameList(true);
             EnableAddAndDeleteGame(true);
+            ShowSaveAndCancel(false);
+
+            mode = FormMode.View;
         }
 
-        private void txtbxRequiredField_KeyUp(object sender, KeyEventArgs e)
+        private void txtbxAnyField_KeyUp(object sender, KeyEventArgs e)
         {
-            btnSave.Enabled = btnSave.Visible && ValidateInput();
+            if (loadedGame != null && mode.Equals(FormMode.View))
+            {
+                EnableGameList(false);
+                EnableAddAndDeleteGame(false);
+                ShowSaveAndCancel(true);
+                mode = FormMode.Edit;
+            }
+            else if (loadedGame == null && !mode.Equals(FormMode.View))
+            {
+                ShowSaveAndCancel(true);
+            }
         }
+
+        //TODO: Testing handling all of this with txtbxAnyField_KeyUp() instead
+        //private void txtbxRequiredField_KeyUp(object sender, KeyEventArgs e)
+        //{
+        //    btnSave.Enabled = btnSave.Visible && ValidateInput();
+        //}
 
         private void BtnDebug_Click(object sender, EventArgs e)
         {
@@ -107,7 +140,7 @@ namespace VideoGameCollection_WinForms
 
         private void BindGameDetail(string gameID)
         {
-            ClearBindings();
+            //ClearBindings();
 
             var gameRow = games.AsEnumerable().Where(x => x["VGID"].ToString() == gameID).FirstOrDefault();
 
@@ -123,6 +156,19 @@ namespace VideoGameCollection_WinForms
 
                 if (int.TryParse(gameID.Trim(), out int id))
                 {
+                    loadedGame = new Game(false)
+                    {
+                        VGID = id,
+                        Title = txtbxTitle.Text.Trim(),
+                        Platform = txtbxPlatform.Text.Trim(),
+                        Description = txtbxDescription.Text.Trim(),
+                        Genre = txtbxGenre.Text.Trim(),
+                        ReleaseYear = txtbxReleaseYear.Text.Trim(),
+                        Developer = txtbxDeveloper.Text.Trim(),
+                        Publisher = txtbxPublisher.Text.Trim(),
+                        Physical = true
+                    };
+
                     var images = ImagesSqlRepo.GetImagesByGame(id);
 
                     if (images != null && images.Rows.Count > 0)
@@ -142,6 +188,26 @@ namespace VideoGameCollection_WinForms
             //TODO: Otherwise, probably have to stick with Zoom, since image will be too big for Form
         }
 
+        private void AddOrUpdateGame()
+        {
+            var isNewGame = mode.Equals(FormMode.Add);
+
+            var newOrUpdatedGame = new Game(isNew: isNewGame)
+            {
+                VGID = loadedGame?.VGID ?? 0,
+                Title = txtbxTitle.Text.Trim(),
+                Platform = txtbxPlatform.Text.Trim(),
+                Description = txtbxDescription.Text.Trim(),
+                Genre = txtbxGenre.Text.Trim(),
+                ReleaseYear = txtbxReleaseYear.Text.Trim(),
+                Developer = txtbxDeveloper.Text.Trim(),
+                Publisher = txtbxPublisher.Text.Trim(),
+                Physical = true
+            };
+
+            GamesSqlRepo.AddOrUpdateGame(newOrUpdatedGame);
+        }
+
         private bool ValidateInput()
         {
             return !String.IsNullOrWhiteSpace(txtbxTitle.Text.Trim()) &&
@@ -150,6 +216,8 @@ namespace VideoGameCollection_WinForms
 
         private void ClearBindings()
         {
+            loadedGame = null;
+
             picBoxGameImage.Image = null;
 
             txtbxTitle.Text = string.Empty;
@@ -161,19 +229,21 @@ namespace VideoGameCollection_WinForms
             txtbxDescription.Text = string.Empty;
         }
 
-        private void ShowSaveAndCancel(bool show)
+        private void EnableGameList(bool enable)
         {
-            btnSave.Visible = show;
-            btnCancel.Visible = show;
-
-            btnSave.Enabled = show && ValidateInput();
-            btnCancel.Enabled = show;
+            if (!enable)
+            {
+                gameList.SelectedItem = null;
+            }
+            gameList.Enabled = enable;
         }
 
         private void EnableAddAndDeleteGame(bool enable)
         {
             btnAddGame.Enabled = enable;
-            btnDeleteGame.Enabled = enable && gameList.Items.Count > 0;
+            btnDeleteGame.Enabled = enable && 
+                                    gameList.Items.Count > 0 && 
+                                    gameList.SelectedItem != null;
 
             if (btnAddGame.Enabled)
             {
@@ -192,6 +262,14 @@ namespace VideoGameCollection_WinForms
             {
                 btnDeleteGame.BackgroundImage= Properties.Resources.MinusSignRedDisabled;
             }
+        }
+        private void ShowSaveAndCancel(bool show)
+        {
+            btnSave.Visible = show;
+            btnCancel.Visible = show;
+
+            btnSave.Enabled = show && ValidateInput();
+            btnCancel.Enabled = show;
         }
 
     }

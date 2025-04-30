@@ -158,7 +158,7 @@
             txtbxTitle.Name = "txtbxTitle";
             txtbxTitle.Size = new Size(320, 23);
             txtbxTitle.TabIndex = 11;
-            txtbxTitle.KeyUp += txtbxRequiredField_KeyUp;
+            txtbxTitle.KeyUp += txtbxAnyField_KeyUp;
             // 
             // txtbxGenre
             // 
@@ -166,6 +166,7 @@
             txtbxGenre.Name = "txtbxGenre";
             txtbxGenre.Size = new Size(320, 23);
             txtbxGenre.TabIndex = 12;
+            txtbxGenre.KeyUp += txtbxAnyField_KeyUp;
             // 
             // txtbxPlatform
             // 
@@ -173,7 +174,7 @@
             txtbxPlatform.Name = "txtbxPlatform";
             txtbxPlatform.Size = new Size(320, 23);
             txtbxPlatform.TabIndex = 13;
-            txtbxPlatform.KeyUp += txtbxRequiredField_KeyUp;
+            txtbxPlatform.KeyUp += txtbxAnyField_KeyUp;
             // 
             // txtbxReleaseYear
             // 
@@ -181,6 +182,7 @@
             txtbxReleaseYear.Name = "txtbxReleaseYear";
             txtbxReleaseYear.Size = new Size(320, 23);
             txtbxReleaseYear.TabIndex = 14;
+            txtbxReleaseYear.KeyUp += txtbxAnyField_KeyUp;
             // 
             // txtbxDeveloper
             // 
@@ -188,6 +190,7 @@
             txtbxDeveloper.Name = "txtbxDeveloper";
             txtbxDeveloper.Size = new Size(320, 23);
             txtbxDeveloper.TabIndex = 15;
+            txtbxDeveloper.KeyUp += txtbxAnyField_KeyUp;
             // 
             // txtbxPublisher
             // 
@@ -195,6 +198,7 @@
             txtbxPublisher.Name = "txtbxPublisher";
             txtbxPublisher.Size = new Size(320, 23);
             txtbxPublisher.TabIndex = 16;
+            txtbxPublisher.KeyUp += txtbxAnyField_KeyUp;
             // 
             // txtbxDescription
             // 
@@ -203,6 +207,7 @@
             txtbxDescription.Name = "txtbxDescription";
             txtbxDescription.Size = new Size(320, 75);
             txtbxDescription.TabIndex = 17;
+            txtbxDescription.KeyUp += txtbxAnyField_KeyUp;
             // 
             // btnAddGame
             // 
@@ -277,6 +282,7 @@
             Controls.Add(btnDebug);
             MinimumSize = new Size(1005, 557);
             Name = "FormMain";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Video Game Catalog";
             Load += FormMain_Load;
             ((System.ComponentModel.ISupportInitialize)picBoxGameImage).EndInit();
