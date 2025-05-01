@@ -23,8 +23,10 @@ namespace VideoGameCollection_WinForms
         public FormMain()
         {
             InitializeComponent();
-        }
 
+            // Prevents visual artifacts when resizing window
+            ResizeRedraw = true;
+        }
 
         private void FormMain_Load(object sender, EventArgs e)
         {
@@ -70,6 +72,50 @@ namespace VideoGameCollection_WinForms
             EnableAddAndDeleteGame(false);
             ShowSaveAndCancel(true);
             txtbxTitle.Focus();
+        }
+
+        private void btnDeleteGame_Click(Object sender, EventArgs e)
+        {
+            // TODO: Prompt for confirmation, then delete game row from database as well as all associated images 
+            MessageBox.Show("Delete Game not yet implemented");
+        }
+
+        private void btnAddImage_Click(Object sender, EventArgs e)
+        {
+            byte[]? imageBytes = null;
+
+            if (mode.Equals(FormMode.View) && loadedGame != null)
+            {
+                using (var dialog = new OpenFileDialog())
+                {
+                    dialog.Title = "Import Game Image";
+                    dialog.InitialDirectory = "c:\\";
+                    dialog.Filter = ImageUtilities.ImageFileFormats;
+
+                    if (dialog.ShowDialog() == DialogResult.OK)
+                    {
+                        imageBytes = File.ReadAllBytes(dialog.FileName);
+                    }
+
+                    if (imageBytes != null)
+                    {
+                        var oldCursor = Cursor;
+                        Cursor = Cursors.WaitCursor;
+
+                        gameImage = ImageUtilities.ConvertByteArrayToImage(imageBytes);
+                        picBoxGameImage.Image = gameImage;
+                        ImagesSqlRepo.InsertImage(loadedGame.VGID, imageBytes);
+
+                        Cursor = oldCursor;
+                    }
+                }
+            }
+        }
+
+        private void btnDeleteImage_Click(Object sender, EventArgs e)
+        {
+            // TODO
+            MessageBox.Show("Delete Image not yet implemented");
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -217,8 +263,6 @@ namespace VideoGameCollection_WinForms
 
         private void BindGameDetail(string gameID)
         {
-            //ClearBindings();
-
             var gameRow = games.AsEnumerable().Where(x => x["VGID"].ToString() == gameID).FirstOrDefault();
 
             if (gameRow != null)
@@ -271,6 +315,7 @@ namespace VideoGameCollection_WinForms
         {
             var comparer = new GameComparer();
             var isNewGame = mode.Equals(FormMode.Add);
+            var oldCursor = Cursor;
 
             var newOrUpdatedGame = new Game(isNew: isNewGame)
             {
@@ -291,7 +336,9 @@ namespace VideoGameCollection_WinForms
                 return;
             }
             
+            Cursor = Cursors.WaitCursor;
             GamesSqlRepo.AddOrUpdateGame(newOrUpdatedGame);
+            Cursor = oldCursor;
         }
 
         private bool ValidateInput()

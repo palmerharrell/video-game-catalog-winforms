@@ -8,6 +8,8 @@ namespace VideoGameCollection_WinForms.Utilities
 {
     public class ImageUtilities
     {
+        public static readonly string ImageFileFormats = "All files (*.*)|*.*|Bitmap (*.bmp;*.dib)|*.bmp;*.dib|JPEG (*.jpg;*.jpeg;*.jpe;*.jfif)|*.jpg;*.jpeg;*.jpe;*.jfif|GIF (*.gif)|*.gif|PNG (*.png)|*.png|TIFF (*.tif;*.tiff)|*.tif;*.tiff|ICO (*.ico)|*.ico|HEIC (*.heic;*.hif)|*.heic;*.hif|AVIF (*.avif)|*.avif|WEBP (*.webp)|*.webp";
+        
         public static byte[] GetByteArrayFromDiskImage(string path)
         {
             return ConvertImageToByteArray(Image.FromFile(path));
