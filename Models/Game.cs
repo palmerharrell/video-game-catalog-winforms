@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,5 +19,27 @@ namespace VideoGameCollection_WinForms.Models
         public string Publisher { get; set; } = string.Empty;
         public bool Physical { get; set; } = true;
         public bool IsNew { get; set; } = isNew;
+    }
+
+    public class GameComparer : IEqualityComparer<Game>
+    {
+        public bool Equals(Game? x, Game? y)
+        {
+            if (x == null || y == null) return false;
+            return (x.VGID == y.VGID &&
+                    x.Title == y.Title &&
+                    x.Platform == y.Platform &&
+                    x.Description == y.Description &&
+                    x.Genre == y.Genre &&
+                    x.ReleaseYear == y.ReleaseYear &&
+                    x.Developer == y.Developer &&
+                    x.Publisher == y.Publisher &&
+                    x.Physical == y.Physical);
+        }
+
+        public int GetHashCode([DisallowNull] Game obj)
+        {
+            return obj.GetHashCode();
+        }
     }
 }

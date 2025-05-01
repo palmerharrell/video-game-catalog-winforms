@@ -17,6 +17,7 @@ namespace VideoGameCollection_WinForms
         private DataTable games = new();
         private Image? gameImage;
         private Game? loadedGame;
+        private Game? editedGame;
         private FormMode mode;
 
         public FormMain()
@@ -42,6 +43,8 @@ namespace VideoGameCollection_WinForms
 
         private void gameList_SelectedIndexChanged(object? sender, EventArgs e)
         {
+            EnableAddAndDeleteGame(true);
+
             if (mode.Equals(FormMode.View) && gameList.SelectedItem != null)
             {
                 DataRowView selectedGame = (DataRowView)gameList.SelectedItem;
@@ -71,47 +74,119 @@ namespace VideoGameCollection_WinForms
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            var editedGameId = loadedGame?.VGID;
+
             AddOrUpdateGame();
+
             EnableGameList(true);
             EnableAddAndDeleteGame(true);
             ShowSaveAndCancel(false);
-            mode = FormMode.View;
+
+            ClearBindings();
+            LoadGames();
+            BindGameList();
+
+            if (mode.Equals(FormMode.Add))
+            {
+                mode = FormMode.View;
+                gameList.SelectedIndex = gameList.Items.Count - 1;
+            }
+            else
+            {
+                mode = FormMode.View;
+
+                if (editedGameId != null)
+                {
+                    gameList.SelectedIndex = (int)(editedGameId - 1);
+                }
+            }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            //TODO: Either clear form or un-do changes
+            var editedGameId = loadedGame?.VGID;
 
-            //TODO: When Adding, just ClearBindings(). That's probably all.
-            //TODO: When Editing, probably need to re-bind everything and select this game from the
-            //      listBox somehow. Need a way to "un-do" changes and go back to how it started.
             EnableGameList(true);
             EnableAddAndDeleteGame(true);
             ShowSaveAndCancel(false);
 
-            mode = FormMode.View;
+            if (mode.Equals(FormMode.Add))
+            {
+                mode = FormMode.View;
+                ClearBindings();
+            }
+            else
+            {
+                mode = FormMode.View;
+
+                if (editedGameId != null)
+                {
+                    gameList.SelectedIndex = (int)(editedGameId - 1);
+                }
+            }
         }
 
         private void txtbxAnyField_KeyUp(object sender, KeyEventArgs e)
         {
+            if (mode.Equals(FormMode.Edit))
+            {
+                var comparer = new GameComparer();
+
+                if (editedGame != null)
+                {
+                    editedGame.Title = txtbxTitle.Text.Trim();
+                    editedGame.Platform = txtbxPlatform.Text.Trim();
+                    editedGame.Description = txtbxDescription.Text.Trim();
+                    editedGame.Genre = txtbxGenre.Text.Trim();
+                    editedGame.ReleaseYear = txtbxReleaseYear.Text.Trim();
+                    editedGame.Developer = txtbxDeveloper.Text.Trim();
+                    editedGame.Publisher = txtbxPublisher.Text.Trim();
+                }
+
+                if (comparer.Equals(editedGame, loadedGame))
+                {
+                    // Changes were undone, so go back to View mode and hide Save & Cancel
+                    editedGame = null;
+                    EnableGameList(true);
+                    EnableAddAndDeleteGame(true);
+                    ShowSaveAndCancel(false);
+                    mode = FormMode.View;
+
+                    if (loadedGame != null)
+                    {
+                        gameList.Focus();
+                        gameList.SelectedIndex = (loadedGame.VGID - 1);
+                    }
+
+                    return;
+                }
+            }
+
             if (loadedGame != null && mode.Equals(FormMode.View))
             {
                 EnableGameList(false);
                 EnableAddAndDeleteGame(false);
                 ShowSaveAndCancel(true);
                 mode = FormMode.Edit;
+
+                editedGame = new Game(false)
+                {
+                    VGID = loadedGame.VGID,
+                    Title = txtbxTitle.Text.Trim(),
+                    Platform = txtbxPlatform.Text.Trim(),
+                    Description = txtbxDescription.Text.Trim(),
+                    Genre = txtbxGenre.Text.Trim(),
+                    ReleaseYear = txtbxReleaseYear.Text.Trim(),
+                    Developer = txtbxDeveloper.Text.Trim(),
+                    Publisher = txtbxPublisher.Text.Trim(),
+                    Physical = true
+                };
             }
             else if (loadedGame == null && !mode.Equals(FormMode.View))
             {
                 ShowSaveAndCancel(true);
             }
         }
-
-        //TODO: Testing handling all of this with txtbxAnyField_KeyUp() instead
-        //private void txtbxRequiredField_KeyUp(object sender, KeyEventArgs e)
-        //{
-        //    btnSave.Enabled = btnSave.Visible && ValidateInput();
-        //}
 
         private void BtnDebug_Click(object sender, EventArgs e)
         {
@@ -126,6 +201,8 @@ namespace VideoGameCollection_WinForms
         private void BindGameList()
         {
             gameList.SelectedIndexChanged -= gameList_SelectedIndexChanged;
+            gameList.DataSource = null;
+            gameList.DisplayMember = string.Empty;
             gameList.Items.Clear();
 
             if (games.Rows.Count > 0)
@@ -169,6 +246,8 @@ namespace VideoGameCollection_WinForms
                         Physical = true
                     };
 
+                    picBoxGameImage.Image = null;
+
                     var images = ImagesSqlRepo.GetImagesByGame(id);
 
                     if (images != null && images.Rows.Count > 0)
@@ -190,6 +269,7 @@ namespace VideoGameCollection_WinForms
 
         private void AddOrUpdateGame()
         {
+            var comparer = new GameComparer();
             var isNewGame = mode.Equals(FormMode.Add);
 
             var newOrUpdatedGame = new Game(isNew: isNewGame)
@@ -205,6 +285,12 @@ namespace VideoGameCollection_WinForms
                 Physical = true
             };
 
+            if (!isNewGame && comparer.Equals(newOrUpdatedGame, loadedGame))
+            {
+                // Nothing changed. Don't update database.
+                return;
+            }
+            
             GamesSqlRepo.AddOrUpdateGame(newOrUpdatedGame);
         }
 
