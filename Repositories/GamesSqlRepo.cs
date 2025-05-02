@@ -100,8 +100,6 @@ namespace VideoGameCollection_WinForms.Repositories
                     connection.Close();
                 }
             }
-
-            var waitasec = true;
         }
 
         private static void SetCommonParameters(SqlCommand command, Game game)

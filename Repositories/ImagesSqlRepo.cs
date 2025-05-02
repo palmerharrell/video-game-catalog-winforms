@@ -1,10 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using VideoGameCollection_WinForms.Models;
 using VideoGameCollection_WinForms.Utilities;
 
 namespace VideoGameCollection_WinForms.Repositories
@@ -16,7 +12,8 @@ namespace VideoGameCollection_WinForms.Repositories
         public static DataTable GetImagesByGame(int gameId)
         {
             var dataTable = new DataTable();
-            var selectString = @$" SELECT VGID
+            var selectString = @$" SELECT ImageID
+                                         ,VGID
                                          ,Image
                                          ,ImageType
                                    FROM IMAGES
@@ -59,7 +56,40 @@ namespace VideoGameCollection_WinForms.Repositories
                     command.ExecuteNonQuery();
                     connection.Close();
                 }
+            }
+        }
 
+        public static void DeleteImage(int imageId)
+        {
+            var deleteString = $" DELETE FROM IMAGES WHERE ImageID = @ImageID ";
+
+            using SqlConnection connection = new SqlConnection(_connectionString);
+            {
+                using SqlCommand command = new SqlCommand(deleteString, connection);
+                {
+                    command.Parameters.Add(new SqlParameter("@ImageID", SqlDbType.Int) { Value = imageId });
+
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                }
+            }
+        }
+
+        public static void DeleteAllImagesForOneGame(int gameId)
+        {
+            var deleteString = $" DELETE FROM IMAGES WHERE VGID = @VGID ";
+
+            using SqlConnection connection = new SqlConnection(_connectionString);
+            {
+                using SqlCommand command = new SqlCommand(deleteString, connection);
+                {
+                    command.Parameters.Add(new SqlParameter("@VGID", SqlDbType.Int) { Value = gameId });
+
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                }
             }
         }
 
