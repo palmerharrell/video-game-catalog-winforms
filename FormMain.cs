@@ -210,6 +210,20 @@ namespace VideoGameCollection_WinForms
 
         private void txtbxAnyField_KeyUp(object sender, KeyEventArgs e)
         {
+            if (e.KeyCode == Keys.ShiftKey || 
+                e.KeyCode == Keys.Control || 
+                e.KeyCode == Keys.Alt ||
+                e.KeyCode == Keys.Up ||
+                e.KeyCode == Keys.Down ||
+                e.KeyCode == Keys.Left ||
+                e.KeyCode == Keys.Right ||
+                e.KeyCode == Keys.Home ||
+                e.KeyCode == Keys.End)
+            {
+                e.Handled = true;
+                return;
+            }
+
             if (mode.Equals(FormMode.Edit))
             {
                 var comparer = new GameComparer();
