@@ -36,6 +36,8 @@ namespace VideoGameCollection_WinForms
                 ClearBindings();
                 LoadGames();
                 BindGameList();
+                EnableAddAndDeleteGame(true);
+                EnableAddAndDeleteImage(false);
             }
             catch (Exception ex)
             {
@@ -45,8 +47,6 @@ namespace VideoGameCollection_WinForms
 
         private void gameList_SelectedIndexChanged(object? sender, EventArgs e)
         {
-            EnableAddAndDeleteGame(true);
-
             if (mode.Equals(FormMode.View) && gameList.SelectedItem != null)
             {
                 DataRowView selectedGame = (DataRowView)gameList.SelectedItem;
@@ -61,6 +61,9 @@ namespace VideoGameCollection_WinForms
                     }
                 }
             }
+
+            EnableAddAndDeleteGame(true);
+            EnableAddAndDeleteImage(true);
         }
 
         private void btnAddGame_Click(object sender, EventArgs e)
@@ -70,6 +73,7 @@ namespace VideoGameCollection_WinForms
             ClearBindings();
             EnableGameList(false);
             EnableAddAndDeleteGame(false);
+            EnableAddAndDeleteImage(false);
             ShowSaveAndCancel(true);
             txtbxTitle.Focus();
         }
@@ -107,6 +111,7 @@ namespace VideoGameCollection_WinForms
                         ImagesSqlRepo.InsertImage(loadedGame.VGID, imageBytes);
 
                         Cursor = oldCursor;
+                        EnableAddAndDeleteImage(true);
                     }
                 }
             }
@@ -126,6 +131,7 @@ namespace VideoGameCollection_WinForms
 
             EnableGameList(true);
             EnableAddAndDeleteGame(true);
+            EnableAddAndDeleteImage(true);
             ShowSaveAndCancel(false);
 
             ClearBindings();
@@ -160,6 +166,7 @@ namespace VideoGameCollection_WinForms
             {
                 mode = FormMode.View;
                 ClearBindings();
+                EnableAddAndDeleteImage(false);
             }
             else
             {
@@ -168,6 +175,7 @@ namespace VideoGameCollection_WinForms
                 if (editedGameId != null)
                 {
                     gameList.SelectedIndex = (int)(editedGameId - 1);
+                    EnableAddAndDeleteImage(true);
                 }
             }
         }
@@ -195,6 +203,7 @@ namespace VideoGameCollection_WinForms
                     editedGame = null;
                     EnableGameList(true);
                     EnableAddAndDeleteGame(true);
+                    EnableAddAndDeleteImage(true);
                     ShowSaveAndCancel(false);
                     mode = FormMode.View;
 
@@ -202,6 +211,7 @@ namespace VideoGameCollection_WinForms
                     {
                         gameList.Focus();
                         gameList.SelectedIndex = (loadedGame.VGID - 1);
+                        EnableAddAndDeleteImage(true);
                     }
 
                     return;
@@ -212,6 +222,7 @@ namespace VideoGameCollection_WinForms
             {
                 EnableGameList(false);
                 EnableAddAndDeleteGame(false);
+                EnableAddAndDeleteImage(false);
                 ShowSaveAndCancel(true);
                 mode = FormMode.Edit;
 
@@ -290,25 +301,31 @@ namespace VideoGameCollection_WinForms
                         Physical = true
                     };
 
-                    picBoxGameImage.Image = null;
-
-                    var images = ImagesSqlRepo.GetImagesByGame(id);
-
-                    if (images != null && images.Rows.Count > 0)
-                    {
-                        var firstImage = images.AsEnumerable().First()["Image"] as byte[];
-
-                        if (firstImage != null)
-                        {
-                            gameImage = ImageUtilities.ConvertByteArrayToImage(firstImage);
-                            picBoxGameImage.Image = gameImage;
-                        }
-                    }
+                    LoadImages(id);
                 }
             }
+        }
 
-            //TODO: Maybe get image dimensions and change dimensions of PictureBox to match, if under a certain size 
-            //TODO: Otherwise, probably have to stick with Zoom, since image will be too big for Form
+        private void LoadImages(int id)
+        {
+            //TODO: LoadImages only loads the first image for now
+            gameImage = null;
+            picBoxGameImage.Image = null;
+
+            var images = ImagesSqlRepo.GetImagesByGame(id);
+
+            if (images != null && images.Rows.Count > 0)
+            {
+                var firstImage = images.AsEnumerable().First()["Image"] as byte[];
+
+                if (firstImage != null)
+                {
+                    gameImage = ImageUtilities.ConvertByteArrayToImage(firstImage);
+                    picBoxGameImage.Image = gameImage;
+
+                    //TODO: Maybe get image dimensions and change dimensions of PictureBox to match, if under a certain size 
+                }
+            }
         }
 
         private void AddOrUpdateGame()
@@ -351,6 +368,7 @@ namespace VideoGameCollection_WinForms
         {
             loadedGame = null;
 
+            gameImage = null;
             picBoxGameImage.Image = null;
 
             txtbxTitle.Text = string.Empty;
@@ -396,6 +414,39 @@ namespace VideoGameCollection_WinForms
                 btnDeleteGame.BackgroundImage= Properties.Resources.MinusSignRedDisabled;
             }
         }
+
+        private void EnableAddAndDeleteImage(bool enable)
+        {
+            //TODO: Remove "&& gameImage == null" when adding support for multiple images. May need other adjustments.
+            btnAddImage.Enabled = enable && 
+                                  loadedGame != null && 
+                                  mode == FormMode.View && 
+                                  gameImage == null;
+
+            btnDeleteImage.Enabled = enable &&
+                                     loadedGame != null &&
+                                     mode == FormMode.View &&
+                                     gameImage != null;
+
+            if (btnAddImage.Enabled)
+            {
+                btnAddImage.BackgroundImage = Properties.Resources.PlusSignGreen;
+            }
+            else
+            {
+                btnAddImage.BackgroundImage = Properties.Resources.PlusSignGreenDisabled;
+            }
+
+            if (btnDeleteImage.Enabled)
+            {
+                btnDeleteImage.BackgroundImage = Properties.Resources.MinusSignRed;
+            }
+            else
+            {
+                btnDeleteImage.BackgroundImage = Properties.Resources.MinusSignRedDisabled;
+            }
+        }
+
         private void ShowSaveAndCancel(bool show)
         {
             btnSave.Visible = show;
