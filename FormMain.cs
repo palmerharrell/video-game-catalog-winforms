@@ -84,6 +84,7 @@ namespace VideoGameCollection_WinForms
             EnableAddAndDeleteImage(false);
             ShowSaveAndCancel(true);
             txtbxTitle.Focus();
+            HighlightRequiredFields(false);
         }
 
         private void btnDeleteGame_Click(Object sender, EventArgs e)
@@ -177,31 +178,40 @@ namespace VideoGameCollection_WinForms
         {
             var editedGameId = loadedGame?.VGID;
 
-            AddOrUpdateGame();
-
-            EnableGameList(true);
-            EnableAddAndDeleteGame(true);
-            EnableAddAndDeleteImage(true);
-            ShowSaveAndCancel(false);
-
-            ClearBindings();
-            LoadGames();
-            BindGameList();
-
-            if (mode.Equals(FormMode.Add))
+            if (ValidateReleaseYearInput())
             {
-                mode = FormMode.View;
-                gameList.SelectedIndex = gameList.Items.Count - 1;
+                AddOrUpdateGame();
+
+                EnableGameList(true);
+                EnableAddAndDeleteGame(true);
+                EnableAddAndDeleteImage(true);
+                ShowSaveAndCancel(false);
+
+                ClearBindings();
+                LoadGames();
+                BindGameList();
+
+                if (mode.Equals(FormMode.Add))
+                {
+                    mode = FormMode.View;
+                    gameList.SelectedIndex = gameList.Items.Count - 1;
+                }
+                else
+                {
+                    mode = FormMode.View;
+
+                    if (editedGameId != null)
+                    {
+                        gameList.SelectedIndex = lastSelectedGameIndex;
+                    }
+                }
             }
             else
             {
-                mode = FormMode.View;
-
-                if (editedGameId != null)
-                {
-                    gameList.SelectedIndex = lastSelectedGameIndex;
-                }
+                MessageBox.Show("Release Year must be a 4-digit number.", "Release Year Invalid", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtbxReleaseYear.Focus();
             }
+
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -222,6 +232,8 @@ namespace VideoGameCollection_WinForms
                 gameList.SelectedIndex = lastSelectedGameIndex;
                 EnableAddAndDeleteImage(true);
             }
+
+            HighlightRequiredFields(false);
         }
 
         private void txtbxAnyField_KeyUp(object sender, KeyEventArgs e)
@@ -240,6 +252,8 @@ namespace VideoGameCollection_WinForms
                 return;
             }
 
+            HighlightRequiredFields(false);
+
             if (mode.Equals(FormMode.Edit))
             {
                 var comparer = new GameComparer();
@@ -250,8 +264,7 @@ namespace VideoGameCollection_WinForms
                     editedGame.Platform = txtbxPlatform.Text.Trim();
                     editedGame.Description = txtbxDescription.Text.Trim();
                     editedGame.Genre = txtbxGenre.Text.Trim();
-                    //editedGame.ReleaseYear = txtbxReleaseYear.Text.Trim();
-                    editedGame.ReleaseYear = Int16.TryParse(txtbxReleaseYear.Text.Trim(), out var year) ? year : null; //TODO: TEST
+                    editedGame.ReleaseYear = Int16.TryParse(txtbxReleaseYear.Text.Trim(), out var year) ? year : null;
                     editedGame.Developer = txtbxDeveloper.Text.Trim();
                     editedGame.Publisher = txtbxPublisher.Text.Trim();
                 }
@@ -284,6 +297,7 @@ namespace VideoGameCollection_WinForms
                 EnableAddAndDeleteImage(false);
                 ShowSaveAndCancel(true);
                 mode = FormMode.Edit;
+                HighlightRequiredFields(false);
 
                 editedGame = new Game(false)
                 {
@@ -292,7 +306,7 @@ namespace VideoGameCollection_WinForms
                     Platform = txtbxPlatform.Text.Trim(),
                     Description = txtbxDescription.Text.Trim(),
                     Genre = txtbxGenre.Text.Trim(),
-                    ReleaseYear = Int16.TryParse(txtbxReleaseYear.Text.Trim(), out var year) ? year : null, //TODO: TEST
+                    ReleaseYear = Int16.TryParse(txtbxReleaseYear.Text.Trim(), out var year) ? year : null,
                     Developer = txtbxDeveloper.Text.Trim(),
                     Publisher = txtbxPublisher.Text.Trim(),
                     Physical = true
@@ -311,7 +325,11 @@ namespace VideoGameCollection_WinForms
 
         private void LoadGames()
         {
+            var oldCursor = Cursor;
+
+            Cursor = Cursors.WaitCursor;
             games = GamesSqlRepo.GetGames();
+            Cursor = oldCursor;
         }
 
         private void BindGameList()
@@ -357,7 +375,7 @@ namespace VideoGameCollection_WinForms
                         Platform = txtbxPlatform.Text.Trim(),
                         Description = txtbxDescription.Text.Trim(),
                         Genre = txtbxGenre.Text.Trim(),
-                        ReleaseYear = Int16.TryParse(txtbxReleaseYear.Text.Trim(), out var year) ? year : null, //TODO: TEST
+                        ReleaseYear = Int16.TryParse(txtbxReleaseYear.Text.Trim(), out var year) ? year : null,
                         Developer = txtbxDeveloper.Text.Trim(),
                         Publisher = txtbxPublisher.Text.Trim(),
                         Physical = true
@@ -371,9 +389,13 @@ namespace VideoGameCollection_WinForms
         private void LoadImages(int id)
         {
             //TODO: LoadImages only loads the first image for now
+            var oldCursor = Cursor;
+
             loadedImage = null;
             loadedImageId = null;
             picBoxGameImage.Image = null;
+
+            Cursor = Cursors.WaitCursor;
 
             images = ImagesSqlRepo.GetImagesByGame(id);
 
@@ -392,6 +414,7 @@ namespace VideoGameCollection_WinForms
             }
 
             lblAddAnImage.Visible = loadedImage == null;
+            Cursor = oldCursor;
         }
 
         private void AddOrUpdateGame()
@@ -407,7 +430,7 @@ namespace VideoGameCollection_WinForms
                 Platform = txtbxPlatform.Text.Trim(),
                 Description = txtbxDescription.Text.Trim(),
                 Genre = txtbxGenre.Text.Trim(),
-                ReleaseYear = Int16.TryParse(txtbxReleaseYear.Text.Trim(), out var year) ? year : null, //TODO: TEST
+                ReleaseYear = Int16.TryParse(txtbxReleaseYear.Text.Trim(), out var year) ? year : null,
                 Developer = txtbxDeveloper.Text.Trim(),
                 Publisher = txtbxPublisher.Text.Trim(),
                 Physical = true
@@ -432,9 +455,56 @@ namespace VideoGameCollection_WinForms
 
         private bool ValidateReleaseYearInput()
         {
-            //TODO: If provided ReleaseYear is string.empty, return true
-            //TODO: If provided ReleaseYear is NOT string.empty, it must be 4 characters & parsable to Int16
-            return true;
+            var yearInput = txtbxReleaseYear.Text.Trim();
+
+            return string.IsNullOrWhiteSpace(yearInput) || (yearInput.Length == 4 && Int16.TryParse(yearInput, out _));
+        }
+
+        private void HighlightRequiredFields(bool setFocus)
+        {
+
+            //TODO: Currently the Save button is hidden if any required fields are missing, so 
+            //      setFocus is never used. If I decide to show the Save button, call this from 
+            //      btnSave_Click() with setFocus=true.
+
+            if (mode == FormMode.View)
+            {
+                txtbxTitle.BackColor = Color.White;
+                txtbxPlatform.BackColor = Color.White;
+                return;
+            }
+
+            var focused = false;
+
+            if (string.IsNullOrWhiteSpace(txtbxTitle.Text))
+            {
+                txtbxTitle.BackColor = Color.LightPink;
+
+                if (setFocus)
+                {
+                    txtbxTitle.Focus();
+                    focused = true;
+                }
+            }
+            else
+            {
+                txtbxTitle.BackColor = Color.White;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtbxPlatform.Text))
+            {
+                txtbxPlatform.BackColor = Color.LightPink;
+
+                if (setFocus && !focused)
+                {
+                    txtbxPlatform.Focus();
+                    focused = true;
+                }
+            }
+            else
+            {
+                txtbxPlatform.BackColor = Color.White;
+            }
         }
 
         private void ClearBindings()
