@@ -54,6 +54,8 @@
             btnDeleteImage = new Button();
             btnAddImage = new Button();
             toolTip1 = new ToolTip(components);
+            lblAddAGame = new Label();
+            lblAddAnImage = new Label();
             ((System.ComponentModel.ISupportInitialize)picBoxGameImage).BeginInit();
             grpbxDetail.SuspendLayout();
             SuspendLayout();
@@ -342,11 +344,34 @@
             btnAddImage.UseVisualStyleBackColor = true;
             btnAddImage.Click += btnAddImage_Click;
             // 
+            // lblAddAGame
+            // 
+            lblAddAGame.BackColor = SystemColors.ControlLightLight;
+            lblAddAGame.Location = new Point(46, 201);
+            lblAddAGame.Name = "lblAddAGame";
+            lblAddAGame.Size = new Size(84, 45);
+            lblAddAGame.TabIndex = 25;
+            lblAddAGame.Text = "Click + to add a game";
+            lblAddAGame.TextAlign = ContentAlignment.MiddleCenter;
+            lblAddAGame.Visible = false;
+            // 
+            // lblAddAnImage
+            // 
+            lblAddAnImage.Location = new Point(313, 201);
+            lblAddAnImage.Name = "lblAddAnImage";
+            lblAddAnImage.Size = new Size(84, 45);
+            lblAddAnImage.TabIndex = 26;
+            lblAddAnImage.Text = "Click + to add an image";
+            lblAddAnImage.TextAlign = ContentAlignment.MiddleCenter;
+            lblAddAnImage.Visible = false;
+            // 
             // FormMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(989, 518);
+            Controls.Add(lblAddAnImage);
+            Controls.Add(lblAddAGame);
             Controls.Add(btnDeleteImage);
             Controls.Add(btnAddImage);
             Controls.Add(grpbxDetail);
@@ -393,5 +418,7 @@
         private Button btnDeleteImage;
         private Button btnAddImage;
         private ToolTip toolTip1;
+        private Label lblAddAGame;
+        private Label lblAddAnImage;
     }
 }

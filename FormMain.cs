@@ -329,6 +329,8 @@ namespace VideoGameCollection_WinForms
                 gameList.ClearSelected();
             }
 
+            lblAddAGame.Visible = games.Rows.Count == 0;
+
             gameList.SelectedIndexChanged += gameList_SelectedIndexChanged;
         }
 
@@ -388,6 +390,8 @@ namespace VideoGameCollection_WinForms
                     //TODO: Maybe get image dimensions and change dimensions of PictureBox to match, if under a certain size 
                 }
             }
+
+            lblAddAnImage.Visible = loadedImage == null;
         }
 
         private void AddOrUpdateGame()
@@ -436,10 +440,13 @@ namespace VideoGameCollection_WinForms
         private void ClearBindings()
         {
             loadedGame = null;
+            lblAddAGame.Visible = mode == FormMode.View && 
+                                  games.Rows.Count == 0;
 
             loadedImage = null;
             loadedImageId = null;
             picBoxGameImage.Image = null;
+            lblAddAnImage.Visible = false;
 
             txtbxTitle.Text = string.Empty;
             txtbxGenre.Text = string.Empty;
