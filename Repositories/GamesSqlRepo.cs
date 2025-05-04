@@ -32,9 +32,6 @@ namespace VideoGameCollection_WinForms.Repositories
 
         public static void AddOrUpdateGame(Game game)
         {
-            //TODO: This replace method isn't necessary. I guess parameters take care of apostrophes.
-            //ReplaceSpecialCharactersInStringProperties(game); 
-
             if (game.IsNew)
             {
                 AddGame(game);
@@ -48,6 +45,16 @@ namespace VideoGameCollection_WinForms.Repositories
         private static void AddGame(Game game)
         {
             var insertString = @$" INSERT INTO GAMES
+                                        (
+                                            Title
+                                           ,Description
+                                           ,Genre
+                                           ,Platform
+                                           ,Physical
+                                           {(game.ReleaseYear != null ? ",ReleaseYear" : string.Empty)}
+                                           ,Developer
+                                           ,Publisher
+                                        )
                                    VALUES
                                         (
                                              @Title
@@ -55,7 +62,7 @@ namespace VideoGameCollection_WinForms.Repositories
                                             ,@Genre
                                             ,@Platform
                                             ,@Physical
-                                            ,@ReleaseYear
+                                            {(game.ReleaseYear != null ? ",@ReleaseYear" : string.Empty)}
                                             ,@Developer
                                             ,@Publisher
                                         ) ";
@@ -65,6 +72,11 @@ namespace VideoGameCollection_WinForms.Repositories
                 using SqlCommand command = new SqlCommand(insertString, connection);
                 {
                     SetCommonParameters(command, game);
+                    
+                    if (game.ReleaseYear != null)
+                    {
+                        command.Parameters.Add(new SqlParameter("@ReleaseYear", SqlDbType.SmallInt) { Value = game.ReleaseYear });
+                    }
 
                     connection.Open();
                     command.ExecuteNonQuery();
@@ -93,7 +105,25 @@ namespace VideoGameCollection_WinForms.Repositories
                 using SqlCommand command = new SqlCommand(updateString, connection);
                 {
                     SetCommonParameters(command, game);
+                    command.Parameters.Add(new SqlParameter("@ReleaseYear", SqlDbType.SmallInt) { Value = (game.ReleaseYear != null ? game.ReleaseYear : DBNull.Value) });
                     command.Parameters.Add(new SqlParameter("@VGID", SqlDbType.Int) { Value = game.VGID });
+
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                }
+            }
+        }
+
+        public static void DeleteGame(int gameId)
+        {
+            var deleteString = $" DELETE FROM GAMES WHERE VGID = @VGID ";
+
+            using SqlConnection connection = new SqlConnection(_connectionString);
+            {
+                using SqlCommand command = new SqlCommand(deleteString, connection);
+                {
+                    command.Parameters.Add(new SqlParameter("@VGID", SqlDbType.Int) { Value = gameId });
 
                     connection.Open();
                     command.ExecuteNonQuery();
@@ -109,7 +139,6 @@ namespace VideoGameCollection_WinForms.Repositories
             command.Parameters.Add(new SqlParameter("@Genre", SqlDbType.VarChar) { Value = game.Genre.Trim() });
             command.Parameters.Add(new SqlParameter("@Platform", SqlDbType.VarChar) { Value = game.Platform.Trim() });
             command.Parameters.Add(new SqlParameter("@Physical", SqlDbType.Bit) { Value = game.Physical ? 1 : 0 });
-            command.Parameters.Add(new SqlParameter("@ReleaseYear", SqlDbType.SmallInt) { Value = game.ReleaseYear });
             command.Parameters.Add(new SqlParameter("@Developer", SqlDbType.VarChar) { Value = game.Developer.Trim() });
             command.Parameters.Add(new SqlParameter("@Publisher", SqlDbType.VarChar) { Value = game.Publisher.Trim() });
         }

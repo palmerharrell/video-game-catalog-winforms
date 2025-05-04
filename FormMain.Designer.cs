@@ -81,6 +81,7 @@
             gameList.Size = new Size(183, 469);
             gameList.TabIndex = 1;
             gameList.SelectedIndexChanged += gameList_SelectedIndexChanged;
+            gameList.Leave += gameList_Leave;
             // 
             // picBoxGameImage
             // 

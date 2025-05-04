@@ -20,6 +20,7 @@ namespace VideoGameCollection_WinForms
         private int? loadedImageId;
         private Game? loadedGame;
         private Game? editedGame;
+        private int lastSelectedGameIndex = -1;
         private FormMode mode;
 
         public FormMain()
@@ -68,6 +69,11 @@ namespace VideoGameCollection_WinForms
             EnableAddAndDeleteImage(true);
         }
 
+        private void gameList_Leave(object sender, EventArgs e)
+        {
+            lastSelectedGameIndex = gameList.SelectedIndex;
+        }
+
         private void btnAddGame_Click(object sender, EventArgs e)
         {
             mode = FormMode.Add;
@@ -82,15 +88,31 @@ namespace VideoGameCollection_WinForms
 
         private void btnDeleteGame_Click(Object sender, EventArgs e)
         {
-            var result = MessageBox.Show($"Are you sure you want to delete {(loadedGame != null ? loadedGame.Title.Trim() : "this game")} and all associated images?",
-                                         "Delete Game",
-                                         MessageBoxButtons.YesNo,
-                                         MessageBoxIcon.Question);
-
-            if (result == DialogResult.Yes)
+            if (loadedGame != null)
             {
-                MessageBox.Show("Yes clicked (not yet implemented)");
-                //TODO: delete game row from database as well as all associated images
+                var result = MessageBox.Show($"Are you sure you want to delete {loadedGame.Title.Trim()} and all associated images?",
+                                             "Delete Game",
+                                             MessageBoxButtons.YesNo,
+                                             MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    GamesSqlRepo.DeleteGame(loadedGame.VGID);
+                    ImagesSqlRepo.DeleteAllImagesForOneGame(loadedGame.VGID);
+
+                    ClearBindings();
+                    LoadGames();
+                    BindGameList();
+                    EnableAddAndDeleteGame(true);
+                    EnableAddAndDeleteImage(false);
+                    ShowSaveAndCancel(false);
+
+                    gameList.Focus();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Unable to delete game. Re-select it, and try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -177,15 +199,13 @@ namespace VideoGameCollection_WinForms
 
                 if (editedGameId != null)
                 {
-                    gameList.SelectedIndex = (int)(editedGameId - 1);
+                    gameList.SelectedIndex = lastSelectedGameIndex;
                 }
             }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            var editedGameId = loadedGame?.VGID;
-
             EnableGameList(true);
             EnableAddAndDeleteGame(true);
             ShowSaveAndCancel(false);
@@ -199,19 +219,15 @@ namespace VideoGameCollection_WinForms
             else
             {
                 mode = FormMode.View;
-
-                if (editedGameId != null)
-                {
-                    gameList.SelectedIndex = (int)(editedGameId - 1);
-                    EnableAddAndDeleteImage(true);
-                }
+                gameList.SelectedIndex = lastSelectedGameIndex;
+                EnableAddAndDeleteImage(true);
             }
         }
 
         private void txtbxAnyField_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.ShiftKey || 
-                e.KeyCode == Keys.Control || 
+            if (e.KeyCode == Keys.ShiftKey ||
+                e.KeyCode == Keys.Control ||
                 e.KeyCode == Keys.Alt ||
                 e.KeyCode == Keys.Up ||
                 e.KeyCode == Keys.Down ||
@@ -234,7 +250,8 @@ namespace VideoGameCollection_WinForms
                     editedGame.Platform = txtbxPlatform.Text.Trim();
                     editedGame.Description = txtbxDescription.Text.Trim();
                     editedGame.Genre = txtbxGenre.Text.Trim();
-                    editedGame.ReleaseYear = txtbxReleaseYear.Text.Trim();
+                    //editedGame.ReleaseYear = txtbxReleaseYear.Text.Trim();
+                    editedGame.ReleaseYear = Int16.TryParse(txtbxReleaseYear.Text.Trim(), out var year) ? year : null; //TODO: TEST
                     editedGame.Developer = txtbxDeveloper.Text.Trim();
                     editedGame.Publisher = txtbxPublisher.Text.Trim();
                 }
@@ -252,7 +269,7 @@ namespace VideoGameCollection_WinForms
                     if (loadedGame != null)
                     {
                         gameList.Focus();
-                        gameList.SelectedIndex = (loadedGame.VGID - 1);
+                        gameList.SelectedIndex = lastSelectedGameIndex;
                         EnableAddAndDeleteImage(true);
                     }
 
@@ -275,7 +292,7 @@ namespace VideoGameCollection_WinForms
                     Platform = txtbxPlatform.Text.Trim(),
                     Description = txtbxDescription.Text.Trim(),
                     Genre = txtbxGenre.Text.Trim(),
-                    ReleaseYear = txtbxReleaseYear.Text.Trim(),
+                    ReleaseYear = Int16.TryParse(txtbxReleaseYear.Text.Trim(), out var year) ? year : null, //TODO: TEST
                     Developer = txtbxDeveloper.Text.Trim(),
                     Publisher = txtbxPublisher.Text.Trim(),
                     Physical = true
@@ -338,7 +355,7 @@ namespace VideoGameCollection_WinForms
                         Platform = txtbxPlatform.Text.Trim(),
                         Description = txtbxDescription.Text.Trim(),
                         Genre = txtbxGenre.Text.Trim(),
-                        ReleaseYear = txtbxReleaseYear.Text.Trim(),
+                        ReleaseYear = Int16.TryParse(txtbxReleaseYear.Text.Trim(), out var year) ? year : null, //TODO: TEST
                         Developer = txtbxDeveloper.Text.Trim(),
                         Publisher = txtbxPublisher.Text.Trim(),
                         Physical = true
@@ -386,7 +403,7 @@ namespace VideoGameCollection_WinForms
                 Platform = txtbxPlatform.Text.Trim(),
                 Description = txtbxDescription.Text.Trim(),
                 Genre = txtbxGenre.Text.Trim(),
-                ReleaseYear = txtbxReleaseYear.Text.Trim(),
+                ReleaseYear = Int16.TryParse(txtbxReleaseYear.Text.Trim(), out var year) ? year : null, //TODO: TEST
                 Developer = txtbxDeveloper.Text.Trim(),
                 Publisher = txtbxPublisher.Text.Trim(),
                 Physical = true
@@ -397,7 +414,7 @@ namespace VideoGameCollection_WinForms
                 // Nothing changed. Don't update database.
                 return;
             }
-            
+
             Cursor = Cursors.WaitCursor;
             GamesSqlRepo.AddOrUpdateGame(newOrUpdatedGame);
             Cursor = oldCursor;
@@ -407,6 +424,13 @@ namespace VideoGameCollection_WinForms
         {
             return !String.IsNullOrWhiteSpace(txtbxTitle.Text.Trim()) &&
                    !String.IsNullOrWhiteSpace(txtbxPlatform.Text.Trim());
+        }
+
+        private bool ValidateReleaseYearInput()
+        {
+            //TODO: If provided ReleaseYear is string.empty, return true
+            //TODO: If provided ReleaseYear is NOT string.empty, it must be 4 characters & parsable to Int16
+            return true;
         }
 
         private void ClearBindings()
@@ -438,8 +462,8 @@ namespace VideoGameCollection_WinForms
         private void EnableAddAndDeleteGame(bool enable)
         {
             btnAddGame.Enabled = enable;
-            btnDeleteGame.Enabled = enable && 
-                                    gameList.Items.Count > 0 && 
+            btnDeleteGame.Enabled = enable &&
+                                    gameList.Items.Count > 0 &&
                                     gameList.SelectedItem != null;
 
             if (btnAddGame.Enabled)
@@ -457,15 +481,15 @@ namespace VideoGameCollection_WinForms
             }
             else
             {
-                btnDeleteGame.BackgroundImage= Properties.Resources.MinusSignRedDisabled;
+                btnDeleteGame.BackgroundImage = Properties.Resources.MinusSignRedDisabled;
             }
         }
 
         private void EnableAddAndDeleteImage(bool enable)
         {
-            btnAddImage.Enabled = enable && 
-                                  loadedGame != null && 
-                                  mode == FormMode.View && 
+            btnAddImage.Enabled = enable &&
+                                  loadedGame != null &&
+                                  mode == FormMode.View &&
                                   loadedImage == null;
 
             btnDeleteImage.Enabled = enable &&
@@ -500,6 +524,5 @@ namespace VideoGameCollection_WinForms
             btnSave.Enabled = show && ValidateRequiredInput();
             btnCancel.Enabled = show;
         }
-
     }
 }

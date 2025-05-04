@@ -14,7 +14,7 @@ namespace VideoGameCollection_WinForms.Models
         public required string Platform { get; set; }
         public string Description { get; set; } = string.Empty;
         public string Genre { get; set; } = string.Empty;
-        public string ReleaseYear { get; set; } = string.Empty;
+        public Int16? ReleaseYear { get; set; }
         public string Developer { get; set; } = string.Empty;
         public string Publisher { get; set; } = string.Empty;
         public bool Physical { get; set; } = true;
