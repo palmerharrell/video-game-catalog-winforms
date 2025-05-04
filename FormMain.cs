@@ -27,6 +27,10 @@ namespace VideoGameCollection_WinForms
         {
             InitializeComponent();
 
+            // Debug button for running test code in MainDebugger.MainDebug()
+            btnDebug.Enabled = false;
+            btnDebug.Visible = false;
+
             // Prevents visual artifacts when resizing window
             ResizeRedraw = true;
         }

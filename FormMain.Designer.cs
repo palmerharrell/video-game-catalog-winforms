@@ -66,7 +66,7 @@
             btnDebug.Location = new Point(905, 486);
             btnDebug.Name = "btnDebug";
             btnDebug.Size = new Size(75, 23);
-            btnDebug.TabIndex = 0;
+            btnDebug.TabIndex = 8;
             btnDebug.Text = "Debug";
             btnDebug.UseVisualStyleBackColor = true;
             btnDebug.Click += BtnDebug_Click;
@@ -81,7 +81,7 @@
             gameList.MinimumSize = new Size(183, 469);
             gameList.Name = "gameList";
             gameList.Size = new Size(183, 469);
-            gameList.TabIndex = 1;
+            gameList.TabIndex = 0;
             gameList.SelectedIndexChanged += gameList_SelectedIndexChanged;
             gameList.Leave += gameList_Leave;
             // 
@@ -105,7 +105,7 @@
             lblTitle.Location = new Point(8, 31);
             lblTitle.Name = "lblTitle";
             lblTitle.Size = new Size(80, 15);
-            lblTitle.TabIndex = 3;
+            lblTitle.TabIndex = 0;
             lblTitle.Text = "Title";
             lblTitle.TextAlign = ContentAlignment.TopRight;
             // 
@@ -116,7 +116,7 @@
             lblDescription.Location = new Point(8, 284);
             lblDescription.Name = "lblDescription";
             lblDescription.Size = new Size(80, 15);
-            lblDescription.TabIndex = 4;
+            lblDescription.TabIndex = 12;
             lblDescription.Text = "Description";
             lblDescription.TextAlign = ContentAlignment.TopRight;
             // 
@@ -127,7 +127,7 @@
             lblGenre.Location = new Point(8, 173);
             lblGenre.Name = "lblGenre";
             lblGenre.Size = new Size(80, 15);
-            lblGenre.TabIndex = 5;
+            lblGenre.TabIndex = 6;
             lblGenre.Text = "Genre";
             lblGenre.TextAlign = ContentAlignment.TopRight;
             // 
@@ -138,7 +138,7 @@
             lblPlatform.Location = new Point(8, 99);
             lblPlatform.Name = "lblPlatform";
             lblPlatform.Size = new Size(80, 15);
-            lblPlatform.TabIndex = 6;
+            lblPlatform.TabIndex = 2;
             lblPlatform.Text = "Platform";
             lblPlatform.TextAlign = ContentAlignment.TopRight;
             // 
@@ -149,7 +149,7 @@
             lblReleaseYear.Location = new Point(8, 136);
             lblReleaseYear.Name = "lblReleaseYear";
             lblReleaseYear.Size = new Size(80, 15);
-            lblReleaseYear.TabIndex = 8;
+            lblReleaseYear.TabIndex = 4;
             lblReleaseYear.Text = "Release Year";
             lblReleaseYear.TextAlign = ContentAlignment.TopRight;
             // 
@@ -160,7 +160,7 @@
             lblDeveloper.Location = new Point(8, 210);
             lblDeveloper.Name = "lblDeveloper";
             lblDeveloper.Size = new Size(80, 15);
-            lblDeveloper.TabIndex = 9;
+            lblDeveloper.TabIndex = 8;
             lblDeveloper.Text = "Developer";
             lblDeveloper.TextAlign = ContentAlignment.TopRight;
             // 
@@ -183,7 +183,7 @@
             txtbxTitle.MinimumSize = new Size(320, 23);
             txtbxTitle.Name = "txtbxTitle";
             txtbxTitle.Size = new Size(320, 23);
-            txtbxTitle.TabIndex = 11;
+            txtbxTitle.TabIndex = 1;
             txtbxTitle.KeyUp += txtbxAnyField_KeyUp;
             // 
             // txtbxGenre
@@ -192,7 +192,7 @@
             txtbxGenre.Location = new Point(106, 170);
             txtbxGenre.Name = "txtbxGenre";
             txtbxGenre.Size = new Size(320, 23);
-            txtbxGenre.TabIndex = 12;
+            txtbxGenre.TabIndex = 7;
             txtbxGenre.KeyUp += txtbxAnyField_KeyUp;
             // 
             // txtbxPlatform
@@ -201,7 +201,7 @@
             txtbxPlatform.Location = new Point(106, 96);
             txtbxPlatform.Name = "txtbxPlatform";
             txtbxPlatform.Size = new Size(320, 23);
-            txtbxPlatform.TabIndex = 13;
+            txtbxPlatform.TabIndex = 3;
             txtbxPlatform.KeyUp += txtbxAnyField_KeyUp;
             // 
             // txtbxReleaseYear
@@ -210,7 +210,7 @@
             txtbxReleaseYear.Location = new Point(106, 133);
             txtbxReleaseYear.Name = "txtbxReleaseYear";
             txtbxReleaseYear.Size = new Size(320, 23);
-            txtbxReleaseYear.TabIndex = 14;
+            txtbxReleaseYear.TabIndex = 5;
             txtbxReleaseYear.KeyUp += txtbxAnyField_KeyUp;
             // 
             // txtbxDeveloper
@@ -219,7 +219,7 @@
             txtbxDeveloper.Location = new Point(106, 207);
             txtbxDeveloper.Name = "txtbxDeveloper";
             txtbxDeveloper.Size = new Size(320, 23);
-            txtbxDeveloper.TabIndex = 15;
+            txtbxDeveloper.TabIndex = 9;
             txtbxDeveloper.KeyUp += txtbxAnyField_KeyUp;
             // 
             // txtbxPublisher
@@ -228,7 +228,7 @@
             txtbxPublisher.Location = new Point(106, 244);
             txtbxPublisher.Name = "txtbxPublisher";
             txtbxPublisher.Size = new Size(320, 23);
-            txtbxPublisher.TabIndex = 16;
+            txtbxPublisher.TabIndex = 11;
             txtbxPublisher.KeyUp += txtbxAnyField_KeyUp;
             // 
             // txtbxDescription
@@ -238,7 +238,7 @@
             txtbxDescription.Multiline = true;
             txtbxDescription.Name = "txtbxDescription";
             txtbxDescription.Size = new Size(320, 75);
-            txtbxDescription.TabIndex = 17;
+            txtbxDescription.TabIndex = 13;
             txtbxDescription.KeyUp += txtbxAnyField_KeyUp;
             // 
             // btnAddGame
@@ -249,7 +249,7 @@
             btnAddGame.Location = new Point(46, 485);
             btnAddGame.Name = "btnAddGame";
             btnAddGame.Size = new Size(25, 25);
-            btnAddGame.TabIndex = 18;
+            btnAddGame.TabIndex = 2;
             toolTip1.SetToolTip(btnAddGame, "Add Game");
             btnAddGame.UseVisualStyleBackColor = true;
             btnAddGame.Click += btnAddGame_Click;
@@ -262,7 +262,7 @@
             btnDeleteGame.Location = new Point(101, 485);
             btnDeleteGame.Name = "btnDeleteGame";
             btnDeleteGame.Size = new Size(25, 25);
-            btnDeleteGame.TabIndex = 19;
+            btnDeleteGame.TabIndex = 3;
             toolTip1.SetToolTip(btnDeleteGame, "Delete Game");
             btnDeleteGame.UseVisualStyleBackColor = true;
             btnDeleteGame.Click += btnDeleteGame_Click;
@@ -274,7 +274,7 @@
             btnSave.Location = new Point(149, 382);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(75, 23);
-            btnSave.TabIndex = 20;
+            btnSave.TabIndex = 14;
             btnSave.Text = "Save";
             btnSave.UseVisualStyleBackColor = true;
             btnSave.Visible = false;
@@ -287,7 +287,7 @@
             btnCancel.Location = new Point(302, 382);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(75, 23);
-            btnCancel.TabIndex = 21;
+            btnCancel.TabIndex = 15;
             btnCancel.Text = "Cancel";
             btnCancel.UseVisualStyleBackColor = true;
             btnCancel.Visible = false;
@@ -315,7 +315,7 @@
             grpbxDetail.Location = new Point(533, 53);
             grpbxDetail.Name = "grpbxDetail";
             grpbxDetail.Size = new Size(444, 426);
-            grpbxDetail.TabIndex = 22;
+            grpbxDetail.TabIndex = 7;
             grpbxDetail.TabStop = false;
             // 
             // btnDeleteImage
@@ -326,7 +326,7 @@
             btnDeleteImage.Location = new Point(372, 485);
             btnDeleteImage.Name = "btnDeleteImage";
             btnDeleteImage.Size = new Size(25, 25);
-            btnDeleteImage.TabIndex = 24;
+            btnDeleteImage.TabIndex = 6;
             toolTip1.SetToolTip(btnDeleteImage, "Delete Image");
             btnDeleteImage.UseVisualStyleBackColor = true;
             btnDeleteImage.Click += btnDeleteImage_Click;
@@ -339,7 +339,7 @@
             btnAddImage.Location = new Point(317, 485);
             btnAddImage.Name = "btnAddImage";
             btnAddImage.Size = new Size(25, 25);
-            btnAddImage.TabIndex = 23;
+            btnAddImage.TabIndex = 5;
             toolTip1.SetToolTip(btnAddImage, "Add Image from disk");
             btnAddImage.UseVisualStyleBackColor = true;
             btnAddImage.Click += btnAddImage_Click;
@@ -350,7 +350,7 @@
             lblAddAGame.Location = new Point(46, 201);
             lblAddAGame.Name = "lblAddAGame";
             lblAddAGame.Size = new Size(84, 45);
-            lblAddAGame.TabIndex = 25;
+            lblAddAGame.TabIndex = 1;
             lblAddAGame.Text = "Click + to add a game";
             lblAddAGame.TextAlign = ContentAlignment.MiddleCenter;
             lblAddAGame.Visible = false;
@@ -360,7 +360,7 @@
             lblAddAnImage.Location = new Point(313, 201);
             lblAddAnImage.Name = "lblAddAnImage";
             lblAddAnImage.Size = new Size(84, 45);
-            lblAddAnImage.TabIndex = 26;
+            lblAddAnImage.TabIndex = 4;
             lblAddAnImage.Text = "Click + to add an image";
             lblAddAnImage.TextAlign = ContentAlignment.MiddleCenter;
             lblAddAnImage.Visible = false;
