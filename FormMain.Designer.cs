@@ -178,6 +178,7 @@
             // txtbxTitle
             // 
             txtbxTitle.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            txtbxTitle.BorderStyle = BorderStyle.FixedSingle;
             txtbxTitle.Location = new Point(106, 28);
             txtbxTitle.MaximumSize = new Size(640, 23);
             txtbxTitle.MinimumSize = new Size(320, 23);
@@ -189,6 +190,7 @@
             // txtbxGenre
             // 
             txtbxGenre.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            txtbxGenre.BorderStyle = BorderStyle.FixedSingle;
             txtbxGenre.Location = new Point(106, 170);
             txtbxGenre.Name = "txtbxGenre";
             txtbxGenre.Size = new Size(320, 23);
@@ -198,6 +200,7 @@
             // txtbxPlatform
             // 
             txtbxPlatform.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            txtbxPlatform.BorderStyle = BorderStyle.FixedSingle;
             txtbxPlatform.Location = new Point(106, 96);
             txtbxPlatform.Name = "txtbxPlatform";
             txtbxPlatform.Size = new Size(320, 23);
@@ -207,6 +210,7 @@
             // txtbxReleaseYear
             // 
             txtbxReleaseYear.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            txtbxReleaseYear.BorderStyle = BorderStyle.FixedSingle;
             txtbxReleaseYear.Location = new Point(106, 133);
             txtbxReleaseYear.Name = "txtbxReleaseYear";
             txtbxReleaseYear.Size = new Size(320, 23);
@@ -216,6 +220,7 @@
             // txtbxDeveloper
             // 
             txtbxDeveloper.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            txtbxDeveloper.BorderStyle = BorderStyle.FixedSingle;
             txtbxDeveloper.Location = new Point(106, 207);
             txtbxDeveloper.Name = "txtbxDeveloper";
             txtbxDeveloper.Size = new Size(320, 23);
@@ -225,6 +230,7 @@
             // txtbxPublisher
             // 
             txtbxPublisher.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            txtbxPublisher.BorderStyle = BorderStyle.FixedSingle;
             txtbxPublisher.Location = new Point(106, 244);
             txtbxPublisher.Name = "txtbxPublisher";
             txtbxPublisher.Size = new Size(320, 23);
@@ -234,6 +240,7 @@
             // txtbxDescription
             // 
             txtbxDescription.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            txtbxDescription.BorderStyle = BorderStyle.FixedSingle;
             txtbxDescription.Location = new Point(106, 281);
             txtbxDescription.Multiline = true;
             txtbxDescription.Name = "txtbxDescription";

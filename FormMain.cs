@@ -45,6 +45,12 @@ namespace VideoGameCollection_WinForms
                 BindGameList();
                 EnableAddAndDeleteGame(true);
                 EnableAddAndDeleteImage(false);
+                EnableDetailControls(false);
+
+                if (games.Rows.Count > 0)
+                {
+                    gameList.SelectedIndex = 0;
+                }
             }
             catch (Exception ex)
             {
@@ -71,6 +77,7 @@ namespace VideoGameCollection_WinForms
 
             EnableAddAndDeleteGame(true);
             EnableAddAndDeleteImage(true);
+            EnableDetailControls(true);
         }
 
         private void gameList_Leave(object sender, EventArgs e)
@@ -87,6 +94,7 @@ namespace VideoGameCollection_WinForms
             EnableAddAndDeleteGame(false);
             EnableAddAndDeleteImage(false);
             ShowSaveAndCancel(true);
+            EnableDetailControls(true);
             txtbxTitle.Focus();
             HighlightRequiredFields(false);
         }
@@ -111,6 +119,7 @@ namespace VideoGameCollection_WinForms
                     EnableAddAndDeleteGame(true);
                     EnableAddAndDeleteImage(false);
                     ShowSaveAndCancel(false);
+                    EnableDetailControls(false);
 
                     gameList.Focus();
                 }
@@ -229,6 +238,8 @@ namespace VideoGameCollection_WinForms
                 mode = FormMode.View;
                 ClearBindings();
                 EnableAddAndDeleteImage(false);
+                EnableDetailControls(false);
+                gameList.Focus();
             }
             else
             {
@@ -272,6 +283,8 @@ namespace VideoGameCollection_WinForms
                     editedGame.Developer = txtbxDeveloper.Text.Trim();
                     editedGame.Publisher = txtbxPublisher.Text.Trim();
                 }
+
+                ShowSaveAndCancel(true);
 
                 if (comparer.Equals(editedGame, loadedGame))
                 {
@@ -385,6 +398,7 @@ namespace VideoGameCollection_WinForms
                         Physical = true
                     };
 
+                    EnableDetailControls(true);
                     LoadImages(id);
                 }
             }
@@ -473,8 +487,8 @@ namespace VideoGameCollection_WinForms
 
             if (mode == FormMode.View)
             {
-                txtbxTitle.BackColor = Color.White;
-                txtbxPlatform.BackColor = Color.White;
+                txtbxTitle.BackColor = txtbxTitle.Enabled ? Color.White : SystemColors.Control;
+                txtbxPlatform.BackColor = txtbxPlatform.Enabled ? Color.White : SystemColors.Control;
                 return;
             }
 
@@ -492,7 +506,7 @@ namespace VideoGameCollection_WinForms
             }
             else
             {
-                txtbxTitle.BackColor = Color.White;
+                txtbxTitle.BackColor = txtbxTitle.Enabled ? Color.White : SystemColors.Control;
             }
 
             if (string.IsNullOrWhiteSpace(txtbxPlatform.Text))
@@ -507,7 +521,7 @@ namespace VideoGameCollection_WinForms
             }
             else
             {
-                txtbxPlatform.BackColor = Color.White;
+                txtbxPlatform.BackColor = txtbxPlatform.Enabled ? Color.White : SystemColors.Control;
             }
         }
 
@@ -604,6 +618,20 @@ namespace VideoGameCollection_WinForms
 
             btnSave.Enabled = show && ValidateRequiredInput();
             btnCancel.Enabled = show;
+        }
+
+        private void EnableDetailControls(bool enable)
+        {
+            HighlightRequiredFields(false);
+            enable = enable && (loadedGame != null || mode == FormMode.Add);
+
+            txtbxTitle.Enabled = enable;
+            txtbxGenre.Enabled = enable;
+            txtbxPlatform.Enabled = enable;
+            txtbxReleaseYear.Enabled = enable;
+            txtbxDeveloper.Enabled = enable;
+            txtbxPublisher.Enabled = enable;
+            txtbxDescription.Enabled = enable;
         }
     }
 }

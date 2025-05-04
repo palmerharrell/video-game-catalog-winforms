@@ -9,7 +9,7 @@ namespace VideoGameCollection_WinForms
     {
         public static void MainDebug()
         {
-            // Make btnDebug visible on FormMain to use this
+            // Show/Enable btnDebug on FormMain to use this
             // Test Code goes here
         }
     }

@@ -23,7 +23,7 @@ namespace VideoGameCollection_WinForms.Repositories
             {
                 using SqlConnection connection = new SqlConnection(_connectionString);
                 using SqlDataAdapter adapter = new SqlDataAdapter(selectString, connection);
-                adapter.SelectCommand.Parameters.AddWithValue("@VGID", gameId);
+                adapter.SelectCommand.Parameters.Add(new SqlParameter("@VGID", SqlDbType.Int) { Value = gameId });
                 adapter.Fill(dataTable);
             }
             catch (Exception ex)
@@ -48,10 +48,10 @@ namespace VideoGameCollection_WinForms.Repositories
             {
                 using SqlCommand command = new SqlCommand(insertString, connection);
                 {
-                    command.Parameters.AddWithValue("@VGID", gameId);
-                    command.Parameters.AddWithValue("@Image", bytes);
-                    command.Parameters.AddWithValue("@ImageType", imageType);
-
+                    command.Parameters.Add(new SqlParameter("@VGID", SqlDbType.Int) { Value = gameId });
+                    command.Parameters.Add(new SqlParameter("@Image", SqlDbType.VarBinary) { Value = bytes });
+                    command.Parameters.Add(new SqlParameter("@ImageType", SqlDbType.VarChar) { Value = imageType });
+                    
                     connection.Open();
                     command.ExecuteNonQuery();
                     connection.Close();
