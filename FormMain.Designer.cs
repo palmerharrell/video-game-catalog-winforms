@@ -63,7 +63,7 @@
             // btnDebug
             // 
             btnDebug.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnDebug.Location = new Point(927, 486);
+            btnDebug.Location = new Point(944, 486);
             btnDebug.Name = "btnDebug";
             btnDebug.Size = new Size(75, 23);
             btnDebug.TabIndex = 8;
@@ -317,7 +317,7 @@
             grpbxDetail.Controls.Add(txtbxDescription);
             grpbxDetail.Controls.Add(btnSave);
             grpbxDetail.Controls.Add(btnCancel);
-            grpbxDetail.Location = new Point(555, 53);
+            grpbxDetail.Location = new Point(572, 53);
             grpbxDetail.Name = "grpbxDetail";
             grpbxDetail.Size = new Size(444, 426);
             grpbxDetail.TabIndex = 7;
@@ -376,7 +376,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1011, 518);
+            ClientSize = new Size(1028, 518);
             Controls.Add(lblAddAGame);
             Controls.Add(gameList);
             Controls.Add(lblAddAnImage);
@@ -388,7 +388,8 @@
             Controls.Add(btnAddGame);
             Controls.Add(btnDebug);
             MaximizeBox = false;
-            MinimumSize = new Size(1005, 557);
+            MaximumSize = new Size(1044, 557);
+            MinimumSize = new Size(1044, 557);
             Name = "FormMain";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Video Game Catalog";
