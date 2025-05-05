@@ -63,7 +63,7 @@
             // btnDebug
             // 
             btnDebug.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnDebug.Location = new Point(905, 486);
+            btnDebug.Location = new Point(927, 486);
             btnDebug.Name = "btnDebug";
             btnDebug.Size = new Size(75, 23);
             btnDebug.TabIndex = 8;
@@ -77,19 +77,17 @@
             gameList.FormattingEnabled = true;
             gameList.ItemHeight = 15;
             gameList.Location = new Point(10, 10);
-            gameList.MaximumSize = new Size(220, 0);
+            gameList.MaximumSize = new Size(230, 0);
             gameList.MinimumSize = new Size(183, 469);
             gameList.Name = "gameList";
-            gameList.Size = new Size(183, 469);
+            gameList.Size = new Size(230, 469);
             gameList.TabIndex = 0;
             gameList.SelectedIndexChanged += gameList_SelectedIndexChanged;
             gameList.Leave += gameList_Leave;
             // 
             // picBoxGameImage
             // 
-            picBoxGameImage.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
-            picBoxGameImage.BorderStyle = BorderStyle.FixedSingle;
-            picBoxGameImage.Location = new Point(217, 10);
+            picBoxGameImage.Location = new Point(256, 10);
             picBoxGameImage.MaximumSize = new Size(600, 0);
             picBoxGameImage.MinimumSize = new Size(300, 300);
             picBoxGameImage.Name = "picBoxGameImage";
@@ -253,7 +251,7 @@
             btnAddGame.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnAddGame.BackgroundImage = Properties.Resources.PlusSignGreen;
             btnAddGame.BackgroundImageLayout = ImageLayout.Zoom;
-            btnAddGame.Location = new Point(46, 485);
+            btnAddGame.Location = new Point(85, 485);
             btnAddGame.Name = "btnAddGame";
             btnAddGame.Size = new Size(25, 25);
             btnAddGame.TabIndex = 2;
@@ -266,7 +264,7 @@
             btnDeleteGame.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnDeleteGame.BackgroundImage = Properties.Resources.MinusSignRed;
             btnDeleteGame.BackgroundImageLayout = ImageLayout.Zoom;
-            btnDeleteGame.Location = new Point(101, 485);
+            btnDeleteGame.Location = new Point(140, 485);
             btnDeleteGame.Name = "btnDeleteGame";
             btnDeleteGame.Size = new Size(25, 25);
             btnDeleteGame.TabIndex = 3;
@@ -319,7 +317,7 @@
             grpbxDetail.Controls.Add(txtbxDescription);
             grpbxDetail.Controls.Add(btnSave);
             grpbxDetail.Controls.Add(btnCancel);
-            grpbxDetail.Location = new Point(533, 53);
+            grpbxDetail.Location = new Point(555, 53);
             grpbxDetail.Name = "grpbxDetail";
             grpbxDetail.Size = new Size(444, 426);
             grpbxDetail.TabIndex = 7;
@@ -330,7 +328,7 @@
             btnDeleteImage.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnDeleteImage.BackgroundImage = Properties.Resources.MinusSignRed;
             btnDeleteImage.BackgroundImageLayout = ImageLayout.Zoom;
-            btnDeleteImage.Location = new Point(372, 485);
+            btnDeleteImage.Location = new Point(421, 485);
             btnDeleteImage.Name = "btnDeleteImage";
             btnDeleteImage.Size = new Size(25, 25);
             btnDeleteImage.TabIndex = 6;
@@ -343,7 +341,7 @@
             btnAddImage.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnAddImage.BackgroundImage = Properties.Resources.PlusSignGreen;
             btnAddImage.BackgroundImageLayout = ImageLayout.Zoom;
-            btnAddImage.Location = new Point(317, 485);
+            btnAddImage.Location = new Point(366, 485);
             btnAddImage.Name = "btnAddImage";
             btnAddImage.Size = new Size(25, 25);
             btnAddImage.TabIndex = 5;
@@ -354,21 +352,23 @@
             // lblAddAGame
             // 
             lblAddAGame.BackColor = SystemColors.ControlLightLight;
-            lblAddAGame.Location = new Point(46, 201);
+            lblAddAGame.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblAddAGame.Location = new Point(10, 10);
             lblAddAGame.Name = "lblAddAGame";
-            lblAddAGame.Size = new Size(84, 45);
+            lblAddAGame.Size = new Size(230, 469);
             lblAddAGame.TabIndex = 1;
-            lblAddAGame.Text = "Click + to add a game";
+            lblAddAGame.Text = "Click + to add\r\na game\r\n↓";
             lblAddAGame.TextAlign = ContentAlignment.MiddleCenter;
             lblAddAGame.Visible = false;
             // 
             // lblAddAnImage
             // 
-            lblAddAnImage.Location = new Point(313, 201);
+            lblAddAnImage.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblAddAnImage.Location = new Point(256, 10);
             lblAddAnImage.Name = "lblAddAnImage";
-            lblAddAnImage.Size = new Size(84, 45);
+            lblAddAnImage.Size = new Size(300, 469);
             lblAddAnImage.TabIndex = 4;
-            lblAddAnImage.Text = "Click + to add an image";
+            lblAddAnImage.Text = "Click + to add\r\nan image\r\n↓";
             lblAddAnImage.TextAlign = ContentAlignment.MiddleCenter;
             lblAddAnImage.Visible = false;
             // 
@@ -376,17 +376,18 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(989, 518);
-            Controls.Add(lblAddAnImage);
+            ClientSize = new Size(1011, 518);
             Controls.Add(lblAddAGame);
+            Controls.Add(gameList);
+            Controls.Add(lblAddAnImage);
+            Controls.Add(picBoxGameImage);
             Controls.Add(btnDeleteImage);
             Controls.Add(btnAddImage);
             Controls.Add(grpbxDetail);
             Controls.Add(btnDeleteGame);
             Controls.Add(btnAddGame);
-            Controls.Add(picBoxGameImage);
-            Controls.Add(gameList);
             Controls.Add(btnDebug);
+            MaximizeBox = false;
             MinimumSize = new Size(1005, 557);
             Name = "FormMain";
             StartPosition = FormStartPosition.CenterScreen;
