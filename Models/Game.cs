@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics.CodeAnalysis;
 
 namespace VideoGameCollection_WinForms.Models
 {
@@ -14,7 +9,7 @@ namespace VideoGameCollection_WinForms.Models
         public required string Platform { get; set; }
         public string Description { get; set; } = string.Empty;
         public string Genre { get; set; } = string.Empty;
-        public Int16? ReleaseYear { get; set; }
+        public string ReleaseYear { get; set; } = string.Empty;
         public string Developer { get; set; } = string.Empty;
         public string Publisher { get; set; } = string.Empty;
         public bool Physical { get; set; } = true;

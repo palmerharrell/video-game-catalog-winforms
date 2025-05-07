@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace VideoGameCollection_WinForms.Utilities
+﻿namespace VideoGameCollection_WinForms.Utilities
 {
     public class ImageUtilities
     {

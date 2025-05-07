@@ -1,6 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
 using System.Data;
-using VideoGameCollection_WinForms.Models;
 using VideoGameCollection_WinForms.Utilities;
 
 namespace VideoGameCollection_WinForms.Repositories

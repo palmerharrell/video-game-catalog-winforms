@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace VideoGameCollection_WinForms.WebScraper
+﻿namespace VideoGameCollection_WinForms.WebScraper
 {
     // Data for table on this wiki page:
     // https://en.wikipedia.org/wiki/List_of_cities_by_GDP

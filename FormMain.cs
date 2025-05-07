@@ -261,7 +261,8 @@ namespace VideoGameCollection_WinForms
                 e.KeyCode == Keys.Left ||
                 e.KeyCode == Keys.Right ||
                 e.KeyCode == Keys.Home ||
-                e.KeyCode == Keys.End)
+                e.KeyCode == Keys.End ||
+                e.KeyCode == Keys.Tab)
             {
                 e.Handled = true;
                 return;
@@ -279,7 +280,7 @@ namespace VideoGameCollection_WinForms
                     editedGame.Platform = txtbxPlatform.Text.Trim();
                     editedGame.Description = txtbxDescription.Text.Trim();
                     editedGame.Genre = txtbxGenre.Text.Trim();
-                    editedGame.ReleaseYear = Int16.TryParse(txtbxReleaseYear.Text.Trim(), out var year) ? year : null;
+                    editedGame.ReleaseYear = txtbxReleaseYear.Text.Trim();
                     editedGame.Developer = txtbxDeveloper.Text.Trim();
                     editedGame.Publisher = txtbxPublisher.Text.Trim();
                 }
@@ -323,7 +324,7 @@ namespace VideoGameCollection_WinForms
                     Platform = txtbxPlatform.Text.Trim(),
                     Description = txtbxDescription.Text.Trim(),
                     Genre = txtbxGenre.Text.Trim(),
-                    ReleaseYear = Int16.TryParse(txtbxReleaseYear.Text.Trim(), out var year) ? year : null,
+                    ReleaseYear = txtbxReleaseYear.Text.Trim(),
                     Developer = txtbxDeveloper.Text.Trim(),
                     Publisher = txtbxPublisher.Text.Trim(),
                     Physical = true
@@ -392,7 +393,7 @@ namespace VideoGameCollection_WinForms
                         Platform = txtbxPlatform.Text.Trim(),
                         Description = txtbxDescription.Text.Trim(),
                         Genre = txtbxGenre.Text.Trim(),
-                        ReleaseYear = Int16.TryParse(txtbxReleaseYear.Text.Trim(), out var year) ? year : null,
+                        ReleaseYear = txtbxReleaseYear.Text.Trim(),
                         Developer = txtbxDeveloper.Text.Trim(),
                         Publisher = txtbxPublisher.Text.Trim(),
                         Physical = true
@@ -426,8 +427,6 @@ namespace VideoGameCollection_WinForms
                     loadedImage = ImageUtilities.ConvertByteArrayToImage(firstImage);
                     loadedImageId = images.AsEnumerable().First()["ImageID"] as int?;
                     picBoxGameImage.Image = loadedImage;
-
-                    //TODO: Maybe get image dimensions and change dimensions of PictureBox to match, if under a certain size 
                 }
             }
 
@@ -448,7 +447,7 @@ namespace VideoGameCollection_WinForms
                 Platform = txtbxPlatform.Text.Trim(),
                 Description = txtbxDescription.Text.Trim(),
                 Genre = txtbxGenre.Text.Trim(),
-                ReleaseYear = Int16.TryParse(txtbxReleaseYear.Text.Trim(), out var year) ? year : null,
+                ReleaseYear = txtbxReleaseYear.Text.Trim(),
                 Developer = txtbxDeveloper.Text.Trim(),
                 Publisher = txtbxPublisher.Text.Trim(),
                 Physical = true

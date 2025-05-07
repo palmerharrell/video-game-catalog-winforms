@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Data.SqlClient;
+﻿using Microsoft.Data.SqlClient;
 using System.Data;
 using VideoGameCollection_WinForms.Models;
 
@@ -51,7 +46,7 @@ namespace VideoGameCollection_WinForms.Repositories
                                            ,Genre
                                            ,Platform
                                            ,Physical
-                                           {(game.ReleaseYear != null ? ",ReleaseYear" : string.Empty)}
+                                           ,ReleaseYear
                                            ,Developer
                                            ,Publisher
                                         )
@@ -62,7 +57,7 @@ namespace VideoGameCollection_WinForms.Repositories
                                             ,@Genre
                                             ,@Platform
                                             ,@Physical
-                                            {(game.ReleaseYear != null ? ",@ReleaseYear" : string.Empty)}
+                                            ,@ReleaseYear
                                             ,@Developer
                                             ,@Publisher
                                         ) ";
@@ -73,11 +68,6 @@ namespace VideoGameCollection_WinForms.Repositories
                 {
                     SetCommonParameters(command, game);
                     
-                    if (game.ReleaseYear != null)
-                    {
-                        command.Parameters.Add(new SqlParameter("@ReleaseYear", SqlDbType.SmallInt) { Value = game.ReleaseYear });
-                    }
-
                     connection.Open();
                     command.ExecuteNonQuery();
                     connection.Close();
@@ -105,7 +95,6 @@ namespace VideoGameCollection_WinForms.Repositories
                 using SqlCommand command = new SqlCommand(updateString, connection);
                 {
                     SetCommonParameters(command, game);
-                    command.Parameters.Add(new SqlParameter("@ReleaseYear", SqlDbType.SmallInt) { Value = (game.ReleaseYear != null ? game.ReleaseYear : DBNull.Value) });
                     command.Parameters.Add(new SqlParameter("@VGID", SqlDbType.Int) { Value = game.VGID });
 
                     connection.Open();
@@ -139,25 +128,10 @@ namespace VideoGameCollection_WinForms.Repositories
             command.Parameters.Add(new SqlParameter("@Genre", SqlDbType.VarChar) { Value = game.Genre.Trim() });
             command.Parameters.Add(new SqlParameter("@Platform", SqlDbType.VarChar) { Value = game.Platform.Trim() });
             command.Parameters.Add(new SqlParameter("@Physical", SqlDbType.Bit) { Value = game.Physical ? 1 : 0 });
+            command.Parameters.Add(new SqlParameter("@ReleaseYear", SqlDbType.SmallInt) { Value = string.IsNullOrWhiteSpace(game.ReleaseYear.Trim()) ? DBNull.Value : game.ReleaseYear.Trim() });
             command.Parameters.Add(new SqlParameter("@Developer", SqlDbType.VarChar) { Value = game.Developer.Trim() });
             command.Parameters.Add(new SqlParameter("@Publisher", SqlDbType.VarChar) { Value = game.Publisher.Trim() });
         }
-
-        // TODO: Use these again, if I find problems with any other characters, but apostrophes aren't a problem.
-        //private static void ReplaceSpecialCharactersInStringProperties(Game game)
-        //{
-        //    game.Title = ReplaceSpecialCharacters(game.Title);
-        //    game.Description = ReplaceSpecialCharacters(game.Description);
-        //    game.Genre = ReplaceSpecialCharacters(game.Genre);
-        //    game.Platform = ReplaceSpecialCharacters(game.Platform);
-        //    game.Developer = ReplaceSpecialCharacters(game.Developer);
-        //    game.Publisher = ReplaceSpecialCharacters(game.Publisher);
-        //}
-
-        //private static string ReplaceSpecialCharacters(string str)
-        //{
-        //    return str.Replace("'", "''");
-        //}
 
     }
 }
