@@ -2,6 +2,13 @@
 {
     public class SqlRepository
     {
-        public const string _connectionString = "server=ORANGE;database=VideoGamesDB;Encrypt=false;UID=palmer;password=palmer";
+        public enum ServerLocation
+        {
+            Network,
+            Local,
+            NotSelected
+        }
+
+        public static ServerLocation server = ServerLocation.NotSelected;
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using System.Configuration;
 using System.Data;
 using VideoGameCollection_WinForms.Utilities;
 
@@ -20,7 +21,7 @@ namespace VideoGameCollection_WinForms.Repositories
 
             try
             {
-                using SqlConnection connection = new SqlConnection(_connectionString);
+                using SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[server.ToString()].ToString());
                 using SqlDataAdapter adapter = new SqlDataAdapter(selectString, connection);
                 adapter.SelectCommand.Parameters.Add(new SqlParameter("@VGID", SqlDbType.Int) { Value = gameId });
                 adapter.Fill(dataTable);
@@ -43,7 +44,7 @@ namespace VideoGameCollection_WinForms.Repositories
         {
             var insertString = $" INSERT INTO IMAGES VALUES(@VGID, @Image, @ImageType) ";
 
-            using SqlConnection connection = new SqlConnection(_connectionString);
+            using SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[server.ToString()].ToString());
             {
                 using SqlCommand command = new SqlCommand(insertString, connection);
                 {
@@ -62,7 +63,7 @@ namespace VideoGameCollection_WinForms.Repositories
         {
             var deleteString = $" DELETE FROM IMAGES WHERE ImageID = @ImageID ";
 
-            using SqlConnection connection = new SqlConnection(_connectionString);
+            using SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[server.ToString()].ToString());
             {
                 using SqlCommand command = new SqlCommand(deleteString, connection);
                 {
@@ -79,7 +80,7 @@ namespace VideoGameCollection_WinForms.Repositories
         {
             var deleteString = $" DELETE FROM IMAGES WHERE VGID = @VGID ";
 
-            using SqlConnection connection = new SqlConnection(_connectionString);
+            using SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[server.ToString()].ToString());
             {
                 using SqlCommand command = new SqlCommand(deleteString, connection);
                 {

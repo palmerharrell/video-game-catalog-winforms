@@ -37,24 +37,38 @@ namespace VideoGameCollection_WinForms
 
         private void FormMain_Load(object sender, EventArgs e)
         {
-            try
+            using (var form = new FormServerSelect())
             {
-                mode = FormMode.View;
-                ClearBindings();
-                LoadGames();
-                BindGameList();
-                EnableAddAndDeleteGame(true);
-                EnableAddAndDeleteImage(false);
-                EnableDetailControls(false);
+                form.ShowDialog();
+            }
 
-                if (games.Rows.Count > 0)
+            if (SqlRepository.server != SqlRepository.ServerLocation.NotSelected)
+            {
+                try
                 {
-                    gameList.SelectedIndex = 0;
+                    mode = FormMode.View;
+                    ClearBindings();
+                    LoadGames();
+                    BindGameList();
+                    EnableAddAndDeleteGame(true);
+                    EnableAddAndDeleteImage(false);
+                    EnableDetailControls(false);
+                    Text += $" ({SqlRepository.server} Database)";
+
+                    if (games.Rows.Count > 0)
+                    {
+                        gameList.SelectedIndex = 0;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Exception: {ex.Message}", "Error loading games", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show($"Exception: {ex.Message}", "Error loading games", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("No database server was selected. Closing program.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Close();
             }
         }
 

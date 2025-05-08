@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using System.Configuration;
 using System.Data;
 using VideoGameCollection_WinForms.Models;
 
@@ -13,7 +14,7 @@ namespace VideoGameCollection_WinForms.Repositories
 
             try
             {
-                using SqlConnection connection = new SqlConnection(_connectionString);
+                using SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[server.ToString()].ToString());
                 using SqlDataAdapter adapter = new SqlDataAdapter(selectString, connection);
                 adapter.Fill(dataTable);
             }
@@ -62,7 +63,7 @@ namespace VideoGameCollection_WinForms.Repositories
                                             ,@Publisher
                                         ) ";
 
-            using SqlConnection connection = new SqlConnection(_connectionString);
+            using SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[server.ToString()].ToString());
             {
                 using SqlCommand command = new SqlCommand(insertString, connection);
                 {
@@ -90,7 +91,7 @@ namespace VideoGameCollection_WinForms.Repositories
                                     WHERE
                                         VGID = @VGID ";
 
-            using SqlConnection connection = new SqlConnection(_connectionString);
+            using SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[server.ToString()].ToString());
             {
                 using SqlCommand command = new SqlCommand(updateString, connection);
                 {
@@ -108,7 +109,7 @@ namespace VideoGameCollection_WinForms.Repositories
         {
             var deleteString = $" DELETE FROM GAMES WHERE VGID = @VGID ";
 
-            using SqlConnection connection = new SqlConnection(_connectionString);
+            using SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[server.ToString()].ToString());
             {
                 using SqlCommand command = new SqlCommand(deleteString, connection);
                 {
