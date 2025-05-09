@@ -1,8 +1,8 @@
 ﻿using HtmlAgilityPack;
 
-namespace VideoGameCollection_WinForms.WebScraper
+namespace VideoGameCollection_WinForms.WebScrapers.WikipediaTest
 {
-    public class Scraper
+    public class WikiScraper
     {
         public List<TestDataModel> GetTestData()
         {
@@ -37,5 +37,6 @@ namespace VideoGameCollection_WinForms.WebScraper
 
             return testData;
         }
+
     }
 }

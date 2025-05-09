@@ -1,4 +1,4 @@
-﻿namespace VideoGameCollection_WinForms.WebScraper
+﻿namespace VideoGameCollection_WinForms.WebScrapers.WikipediaTest
 {
     // Data for table on this wiki page:
     // https://en.wikipedia.org/wiki/List_of_cities_by_GDP
