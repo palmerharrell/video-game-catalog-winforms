@@ -341,6 +341,7 @@ namespace VideoGameCollection_WinForms
                     ReleaseYear = txtbxReleaseYear.Text.Trim(),
                     Developer = txtbxDeveloper.Text.Trim(),
                     Publisher = txtbxPublisher.Text.Trim(),
+                    ScannedUPC = loadedGame.ScannedUPC.Trim(),
                     Physical = true
                 };
             }
@@ -398,6 +399,9 @@ namespace VideoGameCollection_WinForms
                 txtbxPublisher.Text = gameRow["Publisher"].ToString();
                 txtbxDescription.Text = gameRow["Description"].ToString();
 
+                // The !(null-forgiving) operator is hiding a warning: "Converting null literal or possible null value to non-nullable type."
+                string scannedUPC = !string.IsNullOrWhiteSpace(gameRow["ScannedUPC"].ToString()) ? gameRow["ScannedUPC"]?.ToString()! : string.Empty;
+                
                 if (int.TryParse(gameID.Trim(), out int id))
                 {
                     loadedGame = new Game(false)
@@ -410,6 +414,7 @@ namespace VideoGameCollection_WinForms
                         ReleaseYear = txtbxReleaseYear.Text.Trim(),
                         Developer = txtbxDeveloper.Text.Trim(),
                         Publisher = txtbxPublisher.Text.Trim(),
+                        ScannedUPC = scannedUPC.Trim(),
                         Physical = true
                     };
 
@@ -464,6 +469,7 @@ namespace VideoGameCollection_WinForms
                 ReleaseYear = txtbxReleaseYear.Text.Trim(),
                 Developer = txtbxDeveloper.Text.Trim(),
                 Publisher = txtbxPublisher.Text.Trim(),
+                ScannedUPC = loadedGame?.ScannedUPC ?? string.Empty,
                 Physical = true
             };
 

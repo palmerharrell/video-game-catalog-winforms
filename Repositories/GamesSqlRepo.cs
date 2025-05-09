@@ -50,6 +50,7 @@ namespace VideoGameCollection_WinForms.Repositories
                                            ,ReleaseYear
                                            ,Developer
                                            ,Publisher
+                                           ,ScannedUPC
                                         )
                                    VALUES
                                         (
@@ -61,6 +62,7 @@ namespace VideoGameCollection_WinForms.Repositories
                                             ,@ReleaseYear
                                             ,@Developer
                                             ,@Publisher
+                                            ,@ScannedUPC
                                         ) ";
 
             using SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[server.ToString()].ToString());
@@ -88,6 +90,7 @@ namespace VideoGameCollection_WinForms.Repositories
                                         ,ReleaseYear = @ReleaseYear
                                         ,Developer = @Developer
                                         ,Publisher = @Publisher
+                                        ,ScannedUPC = @ScannedUPC
                                     WHERE
                                         VGID = @VGID ";
 
@@ -132,7 +135,8 @@ namespace VideoGameCollection_WinForms.Repositories
             command.Parameters.Add(new SqlParameter("@ReleaseYear", SqlDbType.SmallInt) { Value = string.IsNullOrWhiteSpace(game.ReleaseYear.Trim()) ? DBNull.Value : game.ReleaseYear.Trim() });
             command.Parameters.Add(new SqlParameter("@Developer", SqlDbType.VarChar) { Value = game.Developer.Trim() });
             command.Parameters.Add(new SqlParameter("@Publisher", SqlDbType.VarChar) { Value = game.Publisher.Trim() });
+            command.Parameters.Add(new SqlParameter("@ScannedUPC", SqlDbType.VarChar) { Value = game.ScannedUPC.Trim() });
         }
-
+        
     }
 }

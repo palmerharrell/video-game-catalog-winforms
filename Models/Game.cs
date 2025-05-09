@@ -12,6 +12,7 @@ namespace VideoGameCollection_WinForms.Models
         public string ReleaseYear { get; set; } = string.Empty;
         public string Developer { get; set; } = string.Empty;
         public string Publisher { get; set; } = string.Empty;
+        public string ScannedUPC { get; set; } = string.Empty;
         public bool Physical { get; set; } = true;
         public bool IsNew { get; set; } = isNew;
     }
@@ -29,6 +30,7 @@ namespace VideoGameCollection_WinForms.Models
                     x.ReleaseYear == y.ReleaseYear &&
                     x.Developer == y.Developer &&
                     x.Publisher == y.Publisher &&
+                    x.ScannedUPC == y.ScannedUPC &&
                     x.Physical == y.Physical);
         }
 
