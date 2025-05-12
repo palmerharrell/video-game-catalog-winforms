@@ -63,7 +63,7 @@
             // btnDebug
             // 
             btnDebug.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnDebug.Location = new Point(944, 486);
+            btnDebug.Location = new Point(944, 499);
             btnDebug.Name = "btnDebug";
             btnDebug.Size = new Size(75, 23);
             btnDebug.TabIndex = 8;
@@ -77,7 +77,7 @@
             gameList.FormattingEnabled = true;
             gameList.ItemHeight = 15;
             gameList.Location = new Point(10, 10);
-            gameList.MaximumSize = new Size(230, 0);
+            gameList.MaximumSize = new Size(230, 4);
             gameList.MinimumSize = new Size(183, 469);
             gameList.Name = "gameList";
             gameList.Size = new Size(230, 469);
@@ -91,7 +91,7 @@
             picBoxGameImage.MaximumSize = new Size(600, 0);
             picBoxGameImage.MinimumSize = new Size(300, 300);
             picBoxGameImage.Name = "picBoxGameImage";
-            picBoxGameImage.Size = new Size(300, 469);
+            picBoxGameImage.Size = new Size(310, 469);
             picBoxGameImage.SizeMode = PictureBoxSizeMode.Zoom;
             picBoxGameImage.TabIndex = 2;
             picBoxGameImage.TabStop = false;
@@ -251,7 +251,7 @@
             btnAddGame.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnAddGame.BackgroundImage = Properties.Resources.PlusSignGreen;
             btnAddGame.BackgroundImageLayout = ImageLayout.Zoom;
-            btnAddGame.Location = new Point(85, 485);
+            btnAddGame.Location = new Point(85, 497);
             btnAddGame.Name = "btnAddGame";
             btnAddGame.Size = new Size(25, 25);
             btnAddGame.TabIndex = 2;
@@ -264,7 +264,7 @@
             btnDeleteGame.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnDeleteGame.BackgroundImage = Properties.Resources.MinusSignRed;
             btnDeleteGame.BackgroundImageLayout = ImageLayout.Zoom;
-            btnDeleteGame.Location = new Point(140, 485);
+            btnDeleteGame.Location = new Point(140, 497);
             btnDeleteGame.Name = "btnDeleteGame";
             btnDeleteGame.Size = new Size(25, 25);
             btnDeleteGame.TabIndex = 3;
@@ -317,7 +317,7 @@
             grpbxDetail.Controls.Add(txtbxDescription);
             grpbxDetail.Controls.Add(btnSave);
             grpbxDetail.Controls.Add(btnCancel);
-            grpbxDetail.Location = new Point(572, 53);
+            grpbxDetail.Location = new Point(572, 68);
             grpbxDetail.Name = "grpbxDetail";
             grpbxDetail.Size = new Size(444, 426);
             grpbxDetail.TabIndex = 7;
@@ -328,7 +328,7 @@
             btnDeleteImage.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnDeleteImage.BackgroundImage = Properties.Resources.MinusSignRed;
             btnDeleteImage.BackgroundImageLayout = ImageLayout.Zoom;
-            btnDeleteImage.Location = new Point(421, 485);
+            btnDeleteImage.Location = new Point(421, 497);
             btnDeleteImage.Name = "btnDeleteImage";
             btnDeleteImage.Size = new Size(25, 25);
             btnDeleteImage.TabIndex = 6;
@@ -341,7 +341,7 @@
             btnAddImage.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnAddImage.BackgroundImage = Properties.Resources.PlusSignGreen;
             btnAddImage.BackgroundImageLayout = ImageLayout.Zoom;
-            btnAddImage.Location = new Point(366, 485);
+            btnAddImage.Location = new Point(366, 497);
             btnAddImage.Name = "btnAddImage";
             btnAddImage.Size = new Size(25, 25);
             btnAddImage.TabIndex = 5;
@@ -366,7 +366,7 @@
             lblAddAnImage.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblAddAnImage.Location = new Point(256, 10);
             lblAddAnImage.Name = "lblAddAnImage";
-            lblAddAnImage.Size = new Size(300, 469);
+            lblAddAnImage.Size = new Size(310, 469);
             lblAddAnImage.TabIndex = 4;
             lblAddAnImage.Text = "Click + to add\r\nan image\r\n↓";
             lblAddAnImage.TextAlign = ContentAlignment.MiddleCenter;
@@ -376,7 +376,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1028, 518);
+            ClientSize = new Size(1026, 541);
             Controls.Add(lblAddAGame);
             Controls.Add(gameList);
             Controls.Add(lblAddAnImage);
@@ -388,8 +388,8 @@
             Controls.Add(btnAddGame);
             Controls.Add(btnDebug);
             MaximizeBox = false;
-            MaximumSize = new Size(1044, 557);
-            MinimumSize = new Size(1044, 557);
+            MaximumSize = new Size(1042, 580);
+            MinimumSize = new Size(1042, 580);
             Name = "FormMain";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Video Game Catalog";

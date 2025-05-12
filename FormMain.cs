@@ -2,6 +2,7 @@ using System.Data;
 using VideoGameCollection_WinForms.Models;
 using VideoGameCollection_WinForms.Repositories;
 using VideoGameCollection_WinForms.Utilities;
+using VideoGameCollection_WinForms.WebScrapers.PriceCharting;
 
 namespace VideoGameCollection_WinForms
 {
@@ -20,6 +21,7 @@ namespace VideoGameCollection_WinForms
         private int? loadedImageId;
         private Game? loadedGame;
         private Game? editedGame;
+        private PriceChartingGameData? loadedGameScrapedData;
         private int lastSelectedGameIndex = -1;
         private FormMode mode;
 
@@ -353,7 +355,39 @@ namespace VideoGameCollection_WinForms
 
         private void BtnDebug_Click(object sender, EventArgs e)
         {
-            MainDebugger.MainDebug();
+            //MainDebugger.MainDebug();
+            //TODO: Delete all of this when done referencing it
+            if (loadedGame == null)
+            {
+                MessageBox.Show("No Game Loaded", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(loadedGame.ScannedUPC))
+            {
+                MessageBox.Show("Loaded game does not have a scanned UPC.", "Debug", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            ScrapeGameDetails(loadedGame.ScannedUPC);
+
+            if (ValidateScrapedData())
+            {
+                string details = Environment.NewLine;
+                details += $"Game Title: {loadedGameScrapedData.Title}{Environment.NewLine}";
+                details += $"Platform: {loadedGameScrapedData.Platform}{Environment.NewLine}";
+                details += $"Genre: {loadedGameScrapedData.Genre}{Environment.NewLine}";
+                details += $"Release Year: {loadedGameScrapedData.ReleaseYear}{Environment.NewLine}";
+                details += $"Developer: {loadedGameScrapedData.Developer}{Environment.NewLine}";
+                details += $"Publisher: {loadedGameScrapedData.Publisher}{Environment.NewLine}";
+
+                MessageBox.Show($"Game data found!{Environment.NewLine}{details}", "Game Data Found", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Game data was either not found or it was not valid", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
 
         private void LoadGames()
@@ -453,6 +487,18 @@ namespace VideoGameCollection_WinForms
             Cursor = oldCursor;
         }
 
+        private void ScrapeGameDetails(string upc)
+        {
+            var gameDetailScraper = new PriceChartingScraper();
+            loadedGameScrapedData = gameDetailScraper.GetGameDataByUPC(upc);
+        }
+
+        private bool ValidateScrapedData()
+        {
+            //TODO: Check properties of loadedGameScrapedData and make sure the types, lengths, whatever, make sense
+            return loadedGameScrapedData != null;
+        }
+
         private void AddOrUpdateGame()
         {
             var comparer = new GameComparer();
@@ -547,6 +593,7 @@ namespace VideoGameCollection_WinForms
         private void ClearBindings()
         {
             loadedGame = null;
+            loadedGameScrapedData = null;
             lblAddAGame.Visible = mode == FormMode.View && 
                                   games.Rows.Count == 0;
 
