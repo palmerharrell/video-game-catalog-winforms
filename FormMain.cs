@@ -433,9 +433,10 @@ namespace VideoGameCollection_WinForms
                 txtbxPublisher.Text = gameRow["Publisher"].ToString();
                 txtbxDescription.Text = gameRow["Description"].ToString();
 
+                // TODO: make a hidden label or something for ScannedUPC, and get rid of this mess. 
                 // The !(null-forgiving) operator is hiding a warning: "Converting null literal or possible null value to non-nullable type."
                 string scannedUPC = !string.IsNullOrWhiteSpace(gameRow["ScannedUPC"].ToString()) ? gameRow["ScannedUPC"]?.ToString()! : string.Empty;
-                
+
                 if (int.TryParse(gameID.Trim(), out int id))
                 {
                     loadedGame = new Game(false)
@@ -594,7 +595,7 @@ namespace VideoGameCollection_WinForms
         {
             loadedGame = null;
             loadedGameScrapedData = null;
-            lblAddAGame.Visible = mode == FormMode.View && 
+            lblAddAGame.Visible = mode == FormMode.View &&
                                   games.Rows.Count == 0;
 
             loadedImage = null;
@@ -698,6 +699,28 @@ namespace VideoGameCollection_WinForms
             txtbxDeveloper.Enabled = enable;
             txtbxPublisher.Enabled = enable;
             txtbxDescription.Enabled = enable;
+        }
+
+        private void btnScanUPCs_Click(object sender, EventArgs e)
+        {
+            using (Form scannerForm = new FormBarcodeScanner())
+            {
+                scannerForm.ShowDialog();
+            }
+
+            games.Clear();
+            mode = FormMode.View;
+            ClearBindings();
+            LoadGames();
+            BindGameList();
+            EnableAddAndDeleteGame(true);
+            EnableAddAndDeleteImage(false);
+            EnableDetailControls(false);
+
+            if (games.Rows.Count > 0)
+            {
+                gameList.SelectedIndex = 0;
+            }
         }
     }
 }

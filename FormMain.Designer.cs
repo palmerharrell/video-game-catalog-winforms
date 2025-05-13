@@ -56,6 +56,7 @@
             toolTip1 = new ToolTip(components);
             lblAddAGame = new Label();
             lblAddAnImage = new Label();
+            btnScanUPCs = new Button();
             ((System.ComponentModel.ISupportInitialize)picBoxGameImage).BeginInit();
             grpbxDetail.SuspendLayout();
             SuspendLayout();
@@ -372,11 +373,22 @@
             lblAddAnImage.TextAlign = ContentAlignment.MiddleCenter;
             lblAddAnImage.Visible = false;
             // 
+            // btnScanUPCs
+            // 
+            btnScanUPCs.Location = new Point(777, 500);
+            btnScanUPCs.Name = "btnScanUPCs";
+            btnScanUPCs.Size = new Size(112, 23);
+            btnScanUPCs.TabIndex = 9;
+            btnScanUPCs.Text = "Scan Game Cases";
+            btnScanUPCs.UseVisualStyleBackColor = true;
+            btnScanUPCs.Click += btnScanUPCs_Click;
+            // 
             // FormMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1026, 541);
+            Controls.Add(btnScanUPCs);
             Controls.Add(lblAddAGame);
             Controls.Add(gameList);
             Controls.Add(lblAddAnImage);
@@ -429,5 +441,6 @@
         private ToolTip toolTip1;
         private Label lblAddAGame;
         private Label lblAddAnImage;
+        private Button btnScanUPCs;
     }
 }
