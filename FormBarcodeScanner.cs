@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Media;
 using VideoGameCollection_WinForms.Models;
 using VideoGameCollection_WinForms.Repositories;
 using VideoGameCollection_WinForms.WebScrapers.PriceCharting;
@@ -59,6 +51,8 @@ namespace VideoGameCollection_WinForms
         {
             try
             {
+                btnStopScanning.Enabled = false;
+
                 ScrapeGameData();
 
                 if (ValidateScrapedData())
@@ -85,6 +79,7 @@ namespace VideoGameCollection_WinForms
             finally
             {
                 ClearStoredData();
+                btnStopScanning.Enabled = true;
             }
         }
 
@@ -123,31 +118,6 @@ namespace VideoGameCollection_WinForms
 
         private bool ValidateScrapedData()
         {
-            //TODO: Delete all this once this method's been tested. 
-            //bool validated = false;
-
-            //if (scrapedGame == null)
-            //{
-            //    validated = false;
-            //}
-
-            //if (string.IsNullOrWhiteSpace(scrapedGame.Title))
-            //{
-            //    validated = false;
-            //}
-
-            //if (string.IsNullOrWhiteSpace(scrapedGame.Platform))
-            //{
-            //    validated = false;
-            //}
-
-            //if (!ValidReleaseYear(scrapedGame.ReleaseYear))
-            //{
-            //    validated = false;
-            //}
-            
-            //return validated;
-
             return scrapedGame != null &&
                                !string.IsNullOrWhiteSpace(scrapedGame.Title) &&
                                !string.IsNullOrWhiteSpace(scrapedGame.Platform) &&
@@ -190,6 +160,7 @@ namespace VideoGameCollection_WinForms
             {
                 lblStatus.Text = $"Failed to scan barcode. Please try again.";
                 lblStatus.ForeColor = Color.Red;
+                SystemSounds.Exclamation.Play();
                 return;
             }
 
@@ -209,6 +180,7 @@ namespace VideoGameCollection_WinForms
                 {
                     lblStatus.Text = $"Could not retrieve data for UPC: {scannedUPC}.";
                     lblStatus.ForeColor = Color.Red;
+                    SystemSounds.Exclamation.Play();
                 }
             }
         }

@@ -34,7 +34,6 @@ namespace VideoGameCollection_WinForms.Repositories
             return dataTable;
         }
 
-        //TODO: This method may not have been tested yet
         public static void InsertImage(int gameId, Image image, string imageType = "Photo - Game Case")
         {
             InsertImage(gameId, ImageUtilities.ConvertImageToByteArray(image), imageType);

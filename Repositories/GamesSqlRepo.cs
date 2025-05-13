@@ -80,19 +80,19 @@ namespace VideoGameCollection_WinForms.Repositories
 
         private static void UpdateGame(Game game)
         {
-            var updateString = @$"  UPDATE GAMES
-                                    SET
-                                         Title = @Title
-                                        ,Description = @Description
-                                        ,Genre = @Genre
-                                        ,Platform = @Platform
-                                        ,Physical = @Physical
-                                        ,ReleaseYear = @ReleaseYear
-                                        ,Developer = @Developer
-                                        ,Publisher = @Publisher
-                                        ,ScannedUPC = @ScannedUPC
-                                    WHERE
-                                        VGID = @VGID ";
+            var updateString = @$" UPDATE GAMES
+                                   SET
+                                        Title = @Title
+                                       ,Description = @Description
+                                       ,Genre = @Genre
+                                       ,Platform = @Platform
+                                       ,Physical = @Physical
+                                       ,ReleaseYear = @ReleaseYear
+                                       ,Developer = @Developer
+                                       ,Publisher = @Publisher
+                                       ,ScannedUPC = @ScannedUPC
+                                   WHERE
+                                       VGID = @VGID ";
 
             using SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[server.ToString()].ToString());
             {
