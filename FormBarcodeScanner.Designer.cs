@@ -105,6 +105,7 @@
             StartPosition = FormStartPosition.CenterParent;
             Text = "Barcode Scanner";
             TopMost = true;
+            KeyDown += FormBarcodeScanner_KeyDown;
             grpBxStatus.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
