@@ -22,6 +22,7 @@ namespace VideoGameCollection_WinForms.WebScrapers.PriceCharting
             var releaseYear = string.Empty;
             var developer = htmlDoc.QuerySelector("[itemprop=\"author\"]")?.InnerText.Trim() ?? string.Empty;
             var publisher = htmlDoc.QuerySelector("[itemprop=\"publisher\"]")?.InnerText.Trim() ?? string.Empty;
+            var coverImageURL = htmlDoc.QuerySelector(".cover a img").Attributes["src"].Value.Replace("240.", "1600.") ?? string.Empty;
 
             if (!string.IsNullOrWhiteSpace(releaseDate))
             {
@@ -35,7 +36,8 @@ namespace VideoGameCollection_WinForms.WebScrapers.PriceCharting
                 Genre = WebUtility.HtmlDecode(genre),
                 ReleaseYear = releaseYear,
                 Developer = WebUtility.HtmlDecode(developer),
-                Publisher = WebUtility.HtmlDecode(publisher)
+                Publisher = WebUtility.HtmlDecode(publisher),
+                CoverImageURL = WebUtility.HtmlDecode(coverImageURL)
             };
         }
     }

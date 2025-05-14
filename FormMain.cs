@@ -28,8 +28,8 @@ namespace VideoGameCollection_WinForms
             InitializeComponent();
 
             // Debug button for running test code in MainDebugger.MainDebug()
-            btnDebug.Enabled = false;
-            btnDebug.Visible = false;
+            btnDebug.Enabled = true; //TODO: Undo this
+            btnDebug.Visible = true; //TODO: Undo this
 
             // Prevents visual artifacts when resizing window
             ResizeRedraw = true;
@@ -354,7 +354,7 @@ namespace VideoGameCollection_WinForms
 
         private void BtnDebug_Click(object sender, EventArgs e)
         {
-            MainDebugger.MainDebug();
+            _ = MainDebugger.MainDebug();
         }
 
         private void LoadGames()

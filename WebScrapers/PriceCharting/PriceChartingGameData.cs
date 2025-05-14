@@ -8,5 +8,6 @@
         public string ReleaseYear {  get; set; } = string.Empty;
         public string Developer {  get; set; } = string.Empty;
         public string Publisher {  get; set; } = string.Empty;
+        public string CoverImageURL {  get; set; } = string.Empty;
     }
 }

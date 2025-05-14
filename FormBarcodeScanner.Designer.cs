@@ -33,6 +33,7 @@
             chkbxAutoAdd = new CheckBox();
             grpBxStatus = new GroupBox();
             btnStopScanning = new Button();
+            chkbxGetCoverImage = new CheckBox();
             grpBxStatus.SuspendLayout();
             SuspendLayout();
             // 
@@ -89,11 +90,24 @@
             btnStopScanning.UseVisualStyleBackColor = true;
             btnStopScanning.Click += btnStopScanning_Click;
             // 
+            // chkbxGetCoverImage
+            // 
+            chkbxGetCoverImage.AutoSize = true;
+            chkbxGetCoverImage.Checked = true;
+            chkbxGetCoverImage.CheckState = CheckState.Checked;
+            chkbxGetCoverImage.Location = new Point(12, 285);
+            chkbxGetCoverImage.Name = "chkbxGetCoverImage";
+            chkbxGetCoverImage.Size = new Size(112, 19);
+            chkbxGetCoverImage.TabIndex = 5;
+            chkbxGetCoverImage.Text = "Get cover image";
+            chkbxGetCoverImage.UseVisualStyleBackColor = true;
+            // 
             // FormBarcodeScanner
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(435, 342);
+            Controls.Add(chkbxGetCoverImage);
             Controls.Add(btnStopScanning);
             Controls.Add(grpBxStatus);
             Controls.Add(chkbxAutoAdd);
@@ -118,5 +132,6 @@
         private CheckBox chkbxAutoAdd;
         private GroupBox grpBxStatus;
         private Button btnStopScanning;
+        private CheckBox chkbxGetCoverImage;
     }
 }

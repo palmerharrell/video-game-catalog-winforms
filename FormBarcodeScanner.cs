@@ -8,6 +8,7 @@ namespace VideoGameCollection_WinForms
     public partial class FormBarcodeScanner : Form
     {
         private string scannedUPC = string.Empty;
+        private string coverImageURL = string.Empty;
         private PriceChartingGameData? scrapedGameData = null;
         private Game? scrapedGame = null;
 
@@ -108,6 +109,8 @@ namespace VideoGameCollection_WinForms
                         ScannedUPC = scannedUPC.Trim(),
                         Physical = true
                     };
+
+                    coverImageURL = scrapedGameData.CoverImageURL;
                 }
             }
             finally
@@ -150,8 +153,25 @@ namespace VideoGameCollection_WinForms
 
             GamesSqlRepo.AddOrUpdateGame(scrapedGame!);
 
+            if (chkbxGetCoverImage.Checked)
+            {
+                GetCoverImage();
+            }
+
             Cursor = oldCursor;
             return true;
+        }
+
+        private async void GetCoverImage()
+        {
+            byte[] imageBytes;
+
+            using (var client = new HttpClient())
+            {
+                imageBytes = await client.GetByteArrayAsync(coverImageURL);
+                //TODO: Can't finish below without getting ID of game I just INSERTED (see notes for a plan)
+                //ImagesSqlRepo.InsertImage(ugh, imageBytes);
+            }
         }
 
         private void ShowStatusMessage(bool success, bool declinedToAdd = false, bool failedToScan = false)
