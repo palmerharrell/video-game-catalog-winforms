@@ -297,6 +297,7 @@ namespace VideoGameCollection_WinForms
                     editedGame.ReleaseYear = txtbxReleaseYear.Text.Trim();
                     editedGame.Developer = txtbxDeveloper.Text.Trim();
                     editedGame.Publisher = txtbxPublisher.Text.Trim();
+                    editedGame.ScannedUPC = lblScannedUPC.Text.Trim();
                 }
 
                 ShowSaveAndCancel(true);
@@ -341,7 +342,7 @@ namespace VideoGameCollection_WinForms
                     ReleaseYear = txtbxReleaseYear.Text.Trim(),
                     Developer = txtbxDeveloper.Text.Trim(),
                     Publisher = txtbxPublisher.Text.Trim(),
-                    ScannedUPC = loadedGame.ScannedUPC.Trim(),
+                    ScannedUPC = lblScannedUPC.Text.Trim(),
                     Physical = true
                 };
             }
@@ -397,11 +398,8 @@ namespace VideoGameCollection_WinForms
                 txtbxReleaseYear.Text = gameRow["ReleaseYear"].ToString();
                 txtbxDeveloper.Text = gameRow["Developer"].ToString();
                 txtbxPublisher.Text = gameRow["Publisher"].ToString();
+                lblScannedUPC.Text = gameRow["ScannedUPC"].ToString();
                 txtbxDescription.Text = gameRow["Description"].ToString();
-
-                // TODO: make a hidden label or something for ScannedUPC, and get rid of this mess. 
-                // The !(null-forgiving) operator is hiding a warning: "Converting null literal or possible null value to non-nullable type."
-                string scannedUPC = !string.IsNullOrWhiteSpace(gameRow["ScannedUPC"].ToString()) ? gameRow["ScannedUPC"]?.ToString()! : string.Empty;
 
                 if (int.TryParse(gameID.Trim(), out int id))
                 {
@@ -415,7 +413,7 @@ namespace VideoGameCollection_WinForms
                         ReleaseYear = txtbxReleaseYear.Text.Trim(),
                         Developer = txtbxDeveloper.Text.Trim(),
                         Publisher = txtbxPublisher.Text.Trim(),
-                        ScannedUPC = scannedUPC.Trim(),
+                        ScannedUPC = lblScannedUPC.Text.Trim(),
                         Physical = true
                     };
 
@@ -470,7 +468,7 @@ namespace VideoGameCollection_WinForms
                 ReleaseYear = txtbxReleaseYear.Text.Trim(),
                 Developer = txtbxDeveloper.Text.Trim(),
                 Publisher = txtbxPublisher.Text.Trim(),
-                ScannedUPC = loadedGame?.ScannedUPC ?? string.Empty,
+                ScannedUPC = lblScannedUPC.Text.Trim(),
                 Physical = true
             };
 
@@ -562,6 +560,7 @@ namespace VideoGameCollection_WinForms
             txtbxReleaseYear.Text = string.Empty;
             txtbxDeveloper.Text = string.Empty;
             txtbxPublisher.Text = string.Empty;
+            lblScannedUPC.Text = string.Empty;
             txtbxDescription.Text = string.Empty;
         }
 
@@ -661,6 +660,7 @@ namespace VideoGameCollection_WinForms
                 scannerForm.ShowDialog();
             }
 
+            // Re-load games to get newly scanned ones
             games.Clear();
             mode = FormMode.View;
             ClearBindings();
@@ -672,7 +672,7 @@ namespace VideoGameCollection_WinForms
 
             if (games.Rows.Count > 0)
             {
-                gameList.SelectedIndex = 0;
+                gameList.SelectedIndex = gameList.Items.Count - 1;
             }
         }
     }

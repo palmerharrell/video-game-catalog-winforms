@@ -51,6 +51,7 @@
             btnSave = new Button();
             btnCancel = new Button();
             grpbxDetail = new GroupBox();
+            lblScannedUPC = new Label();
             btnDeleteImage = new Button();
             btnAddImage = new Button();
             toolTip1 = new ToolTip(components);
@@ -302,6 +303,7 @@
             // grpbxDetail
             // 
             grpbxDetail.Anchor = AnchorStyles.Right;
+            grpbxDetail.Controls.Add(lblScannedUPC);
             grpbxDetail.Controls.Add(lblTitle);
             grpbxDetail.Controls.Add(lblPlatform);
             grpbxDetail.Controls.Add(lblReleaseYear);
@@ -323,6 +325,20 @@
             grpbxDetail.Size = new Size(444, 426);
             grpbxDetail.TabIndex = 7;
             grpbxDetail.TabStop = false;
+            // 
+            // lblScannedUPC
+            // 
+            lblScannedUPC.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            lblScannedUPC.BorderStyle = BorderStyle.FixedSingle;
+            lblScannedUPC.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblScannedUPC.ForeColor = SystemColors.Highlight;
+            lblScannedUPC.Location = new Point(107, 62);
+            lblScannedUPC.Name = "lblScannedUPC";
+            lblScannedUPC.Size = new Size(199, 21);
+            lblScannedUPC.TabIndex = 16;
+            lblScannedUPC.Text = "ScannedUPC hidden here";
+            lblScannedUPC.TextAlign = ContentAlignment.MiddleLeft;
+            lblScannedUPC.Visible = false;
             // 
             // btnDeleteImage
             // 
@@ -380,6 +396,7 @@
             btnScanUPCs.Size = new Size(112, 23);
             btnScanUPCs.TabIndex = 9;
             btnScanUPCs.Text = "Scan Game Cases";
+            toolTip1.SetToolTip(btnScanUPCs, "Read UPCs with a barcode scanner");
             btnScanUPCs.UseVisualStyleBackColor = true;
             btnScanUPCs.Click += btnScanUPCs_Click;
             // 
@@ -442,5 +459,6 @@
         private Label lblAddAGame;
         private Label lblAddAnImage;
         private Button btnScanUPCs;
+        private Label lblScannedUPC;
     }
 }
