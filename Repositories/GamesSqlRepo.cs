@@ -26,20 +26,27 @@ namespace VideoGameCollection_WinForms.Repositories
             return dataTable;
         }
 
-        public static void AddOrUpdateGame(Game game)
+        public static int AddOrUpdateGame(Game game)
         {
+            int vgid;
+
             if (game.IsNew)
             {
-                AddGame(game);
+                vgid = AddGame(game);
             }
             else
             {
                 UpdateGame(game);
+                vgid = -1;
             }
+
+            return vgid;
         }
 
-        private static void AddGame(Game game)
+        private static int AddGame(Game game)
         {
+            int vgid;
+
             var insertString = @$" INSERT INTO GAMES
                                         (
                                             Title
@@ -52,6 +59,7 @@ namespace VideoGameCollection_WinForms.Repositories
                                            ,Publisher
                                            ,ScannedUPC
                                         )
+                                   OUTPUT INSERTED.VGID
                                    VALUES
                                         (
                                              @Title
@@ -72,10 +80,12 @@ namespace VideoGameCollection_WinForms.Repositories
                     SetCommonParameters(command, game);
                     
                     connection.Open();
-                    command.ExecuteNonQuery();
+                    vgid = (int)command.ExecuteScalar();
                     connection.Close();
                 }
             }
+
+            return vgid;
         }
 
         private static void UpdateGame(Game game)

@@ -55,9 +55,9 @@
             btnDeleteImage = new Button();
             btnAddImage = new Button();
             toolTip1 = new ToolTip(components);
+            btnScanUPCs = new Button();
             lblAddAGame = new Label();
             lblAddAnImage = new Label();
-            btnScanUPCs = new Button();
             ((System.ComponentModel.ISupportInitialize)picBoxGameImage).BeginInit();
             grpbxDetail.SuspendLayout();
             SuspendLayout();
@@ -82,6 +82,7 @@
             gameList.MaximumSize = new Size(230, 4);
             gameList.MinimumSize = new Size(183, 469);
             gameList.Name = "gameList";
+            gameList.ScrollAlwaysVisible = true;
             gameList.Size = new Size(230, 469);
             gameList.TabIndex = 0;
             gameList.SelectedIndexChanged += gameList_SelectedIndexChanged;
@@ -366,6 +367,17 @@
             btnAddImage.UseVisualStyleBackColor = true;
             btnAddImage.Click += btnAddImage_Click;
             // 
+            // btnScanUPCs
+            // 
+            btnScanUPCs.Location = new Point(777, 500);
+            btnScanUPCs.Name = "btnScanUPCs";
+            btnScanUPCs.Size = new Size(112, 23);
+            btnScanUPCs.TabIndex = 9;
+            btnScanUPCs.Text = "Scan Game Cases";
+            toolTip1.SetToolTip(btnScanUPCs, "Read UPCs with a barcode scanner");
+            btnScanUPCs.UseVisualStyleBackColor = true;
+            btnScanUPCs.Click += btnScanUPCs_Click;
+            // 
             // lblAddAGame
             // 
             lblAddAGame.BackColor = SystemColors.ControlLightLight;
@@ -388,17 +400,6 @@
             lblAddAnImage.Text = "Click + to add\r\nan image\r\n↓";
             lblAddAnImage.TextAlign = ContentAlignment.MiddleCenter;
             lblAddAnImage.Visible = false;
-            // 
-            // btnScanUPCs
-            // 
-            btnScanUPCs.Location = new Point(777, 500);
-            btnScanUPCs.Name = "btnScanUPCs";
-            btnScanUPCs.Size = new Size(112, 23);
-            btnScanUPCs.TabIndex = 9;
-            btnScanUPCs.Text = "Scan Game Cases";
-            toolTip1.SetToolTip(btnScanUPCs, "Read UPCs with a barcode scanner");
-            btnScanUPCs.UseVisualStyleBackColor = true;
-            btnScanUPCs.Click += btnScanUPCs_Click;
             // 
             // FormMain
             // 

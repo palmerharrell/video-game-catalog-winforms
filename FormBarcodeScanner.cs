@@ -129,6 +129,8 @@ namespace VideoGameCollection_WinForms
 
         private bool AddScrapedGame()
         {
+            int newVGID;
+
             if (!chkbxAutoAdd.Checked)
             {
                 string details = Environment.NewLine;
@@ -151,26 +153,25 @@ namespace VideoGameCollection_WinForms
             var oldCursor = Cursor;
             Cursor = Cursors.WaitCursor;
 
-            GamesSqlRepo.AddOrUpdateGame(scrapedGame!);
+            newVGID = GamesSqlRepo.AddOrUpdateGame(scrapedGame!);
 
             if (chkbxGetCoverImage.Checked)
             {
-                GetCoverImage();
+                GetCoverImage(newVGID);
             }
 
             Cursor = oldCursor;
             return true;
         }
 
-        private async void GetCoverImage()
+        private async void GetCoverImage(int vgid)
         {
             byte[] imageBytes;
 
             using (var client = new HttpClient())
             {
                 imageBytes = await client.GetByteArrayAsync(coverImageURL);
-                //TODO: Can't finish below without getting ID of game I just INSERTED (see notes for a plan)
-                //ImagesSqlRepo.InsertImage(ugh, imageBytes);
+                ImagesSqlRepo.InsertImage(vgid, imageBytes);
             }
         }
 
