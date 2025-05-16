@@ -354,7 +354,7 @@ namespace VideoGameCollection_WinForms
 
         private void BtnDebug_Click(object sender, EventArgs e)
         {
-            _ = MainDebugger.MainDebug();
+            MainDebugger.MainDebug();
         }
 
         private void LoadGames()
